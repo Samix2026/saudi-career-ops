@@ -1,0 +1,149 @@
+{
+  "metadata": {
+    "version": "0.1.0",
+    "last_reviewed": "2026-05-22",
+    "description": "Registry of Saudi government programs, regulatory frameworks, and institutional ecosystems relevant to job matching and career intelligence. Entries describe what each program is, who it applies to, and how it surfaces in hiring contexts.",
+    "disclaimer": "This registry is based on publicly available information. Program rules, eligibility criteria, and administrative details change. Always verify current requirements against official sources. Saudi Career Ops has no affiliation with any program listed here.",
+    "entry_type_values": [
+      "training_program",
+      "regulatory_framework",
+      "funding_program",
+      "institutional_ecosystem",
+      "platform"
+    ]
+  },
+
+  "programs": [
+
+    {
+      "id": "prog-tamheer",
+      "canonical_name": "Tamheer",
+      "arabic_name": "برنامج تمهير",
+      "entry_type": "training_program",
+      "administered_by": "Human Resources Development Fund (HRDF)",
+      "administered_by_ar": "صندوق تنمية الموارد البشرية",
+      "official_reference": "hrdf.org.sa",
+      "target_population": "Saudi national graduates seeking on-the-job training with private sector employers",
+      "eligibility_signals": [
+        "Saudi national",
+        "Holds a bachelor's degree or higher (or equivalent technical diploma in some tracks)",
+        "Registered on the HRDF platform",
+        "Not currently employed in a full-time role"
+      ],
+      "hiring_context": "Employers post Tamheer placements as a distinct category. Compensation is partially subsidized by HRDF, making Tamheer placements a lower-cost option for hiring Saudi nationals. Duration is capped at 12 months. The placement does not constitute full employment under the Saudi Labor Law definition. It counts toward Nitaqat under specific HRDF conditions.",
+      "matching_implications": "Tag as employment_type: tamheer. Do not match to candidates seeking permanent employment unless the candidate has explicitly indicated interest. Tamheer experience on a CV should be treated as training exposure, not equivalent work experience.",
+      "notes": "Program terms, subsidy rates, and eligibility rules are subject to change by HRDF. Verify current details at hrdf.org.sa."
+    },
+
+    {
+      "id": "prog-jadarat",
+      "canonical_name": "Jadarat",
+      "arabic_name": "منصة جدارات",
+      "entry_type": "platform",
+      "administered_by": "Human Resources Development Fund (HRDF)",
+      "administered_by_ar": "صندوق تنمية الموارد البشرية",
+      "official_reference": "jadarat.sa",
+      "target_population": "Saudi national job seekers and employers operating in Saudi Arabia",
+      "eligibility_signals": [
+        "Saudi national (for candidate-facing features)",
+        "Registered employer in Saudi Arabia"
+      ],
+      "hiring_context": "HRDF's national talent development and job matching platform. Serves as an official channel for roles with Saudi national preference or Nitaqat requirements. Authentication is via the national identity infrastructure (Absher/NafAz).",
+      "matching_implications": "Roles sourced from Jadarat are high-signal for Saudi national candidates. Expatriate candidates are less relevant targets unless the posting explicitly states openness to non-Saudi applicants.",
+      "notes": "No public API documented at the time of writing. Integration with Saudi Career Ops is planned pending official API access. Saudi Career Ops is not affiliated with Jadarat or HRDF."
+    },
+
+    {
+      "id": "prog-hrdf",
+      "canonical_name": "HRDF",
+      "arabic_name": "صندوق تنمية الموارد البشرية",
+      "entry_type": "funding_program",
+      "administered_by": "Human Resources Development Fund (HRDF)",
+      "administered_by_ar": "صندوق تنمية الموارد البشرية",
+      "official_reference": "hrdf.org.sa",
+      "target_population": "Saudi national employees and job seekers; Saudi private sector employers",
+      "eligibility_signals": [
+        "Saudi national",
+        "Private sector employment context"
+      ],
+      "hiring_context": "HRDF administers Tamheer, the Jadarat platform, wage subsidies for hiring Saudi nationals, and training fund grants. Wage subsidies partially offset employment cost for Saudi national hires. This incentive structure influences private sector hiring decisions beyond what Nitaqat quotas alone produce.",
+      "matching_implications": "HRDF support makes Saudi national candidates financially advantageous for private sector employers in eligible categories. Relevant when assessing employer incentives in matching.",
+      "notes": "HRDF program terms, subsidy structures, and eligible sectors change periodically. This entry describes the general framework, not current program specifics."
+    },
+
+    {
+      "id": "prog-misa-regional-hq",
+      "canonical_name": "MISA Regional Headquarters Program",
+      "arabic_name": "برنامج المقرات الإقليمية — وزارة الاستثمار",
+      "entry_type": "regulatory_framework",
+      "administered_by": "Ministry of Investment of Saudi Arabia (MISA)",
+      "administered_by_ar": "وزارة الاستثمار",
+      "official_reference": "misa.gov.sa",
+      "target_population": "Multinational companies establishing regional headquarters in Saudi Arabia",
+      "eligibility_signals": [
+        "Multinational company with regional operations",
+        "Willing to establish a legal entity in Saudi Arabia",
+        "Meets MISA's criteria for RHQ licensing"
+      ],
+      "hiring_context": "Incentivizes multinationals to base their MENA or wider regional operations in Riyadh. A condition of the program is substantive staffing — not merely a registered address. This creates demand for senior regional roles: regional CEOs, CFOs, HR directors, and functional heads. RHQ roles are English-primary and internationally benchmarked in compensation.",
+      "matching_implications": "RHQ roles are distinct from country-level Saudi operations roles. Candidates with regional scope experience (MENA, GCC) are well-positioned. Saudization requirements for RHQ entities exist but may differ from standard private sector Nitaqat bands.",
+      "notes": "Saudi Career Ops references the MISA RHQ program as market context only. For current licensing criteria and incentive details, consult misa.gov.sa."
+    },
+
+    {
+      "id": "prog-pif-ecosystem",
+      "canonical_name": "PIF Ecosystem",
+      "arabic_name": "نظام صندوق الاستثمارات العامة",
+      "entry_type": "institutional_ecosystem",
+      "administered_by": "Public Investment Fund (PIF)",
+      "administered_by_ar": "صندوق الاستثمارات العامة",
+      "official_reference": "pif.gov.sa",
+      "target_population": "Professionals across all sectors; hiring concentrated in construction, tourism, entertainment, technology, and financial services",
+      "eligibility_signals": [
+        "No universal eligibility criteria — varies by entity and role",
+        "Saudi national preference varies by entity and level"
+      ],
+      "hiring_context": "The Public Investment Fund is Saudi Arabia's sovereign wealth fund. Key portfolio entities include: Neom, Diriyah Gate Development Authority (DGDA), Red Sea Global, Qiddiya Investment Company, Saudi Entertainment Ventures (SEVEN), and others. Each entity hires independently. Compensation is generally above Saudi private sector market rates. Expatriate hiring is common for senior and specialist roles. English is the dominant working language in most PIF entities for professional roles.",
+      "matching_implications": "Candidates with large-scale infrastructure project experience, international exposure, or sector expertise in PIF-targeted industries are strong fits. Saudization expectations vary by entity and role level.",
+      "notes": "The PIF portfolio evolves. The list of entities cited is illustrative, not exhaustive. Verify current portfolio status at pif.gov.sa."
+    },
+
+    {
+      "id": "prog-coop-training",
+      "canonical_name": "Co-op Training Program",
+      "arabic_name": "برنامج التدريب التعاوني",
+      "entry_type": "training_program",
+      "administered_by": "Saudi universities in coordination with the Ministry of Education",
+      "administered_by_ar": "الجامعات السعودية بالتنسيق مع وزارة التعليم",
+      "official_reference": null,
+      "target_population": "Saudi university students in their penultimate or final year of study",
+      "eligibility_signals": [
+        "Currently enrolled in a Saudi university",
+        "Completed required academic credits for co-op placement",
+        "Enrolled in a program with mandatory or optional co-op requirement"
+      ],
+      "hiring_context": "Most Saudi universities require students to complete a formal co-op placement as part of their degree. Placements are typically one or two semesters. Students receive academic credit and often a stipend. Host organizations receive a supervised student.",
+      "matching_implications": "Tag as employment_type: coop. Not equivalent to Tamheer (no HRDF subsidy, university oversight applies). Students in their final year are the primary match target. Co-op experience is training exposure — weight differently from professional work experience but treat as a meaningful sector interest signal.",
+      "notes": "Co-op structures vary by university and faculty. KFUPM, KAUST, KAU, Princess Nourah, and Effat University each have distinct program requirements and timelines."
+    },
+
+    {
+      "id": "prog-saudization-nitaqat",
+      "canonical_name": "Saudization (Nitaqat)",
+      "arabic_name": "السعودة (نطاقات)",
+      "entry_type": "regulatory_framework",
+      "administered_by": "Ministry of Human Resources and Social Development (MHRSD)",
+      "administered_by_ar": "وزارة الموارد البشرية والتنمية الاجتماعية",
+      "official_reference": "mol.gov.sa",
+      "target_population": "Private sector employers operating in Saudi Arabia",
+      "eligibility_signals": [
+        "Private sector employer registered in Saudi Arabia",
+        "Employs above the minimum threshold for Nitaqat classification"
+      ],
+      "hiring_context": "Nitaqat assigns private sector employers a color-coded compliance band (Platinum, Green, Yellow, Red) based on the percentage of Saudi national employees relative to total workforce. Band determines access to government services: Red and Yellow companies face restrictions on new work permits, government contracts, and other services. This creates a structural hiring incentive toward Saudi nationals that operates independently of employer preference.",
+      "matching_implications": "Nitaqat is a background constraint in every Saudi private sector hiring decision. For expatriate candidates, equivalent-qualified Saudi nationals will often be preferred due to Nitaqat pressure. For Saudi nationals, Nitaqat explains why certain employers are aggressive in Saudi hiring and why Tamheer and co-op placements are common.",
+      "notes": "Nitaqat percentages, industry classifications, and role exemptions change. The Ministry of Human Resources publishes current parameters. Do not use this entry as an authoritative source for compliance decisions."
+    }
+
+  ]
+}

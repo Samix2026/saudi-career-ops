@@ -1,0 +1,285 @@
+{
+  "metadata": {
+    "version": "0.1.0",
+    "last_reviewed": "2026-05-22",
+    "description": "Normalized job title registry for Saudi Career Ops. Covers roles common in the Saudi market with Arabic and English variants. Seniority is a hint derived from common usage patterns — it is not authoritative and should be combined with CV evidence.",
+    "seniority_hint_values": [
+      "entry",
+      "junior",
+      "mid",
+      "senior",
+      "lead",
+      "manager",
+      "director",
+      "executive"
+    ],
+    "notes": "The canonical_name is English. Arabic variants reflect how the title typically appears in Saudi Arabic-language job postings — they may differ from direct translations. Tamheer variants are listed separately due to their distinct employment classification."
+  },
+
+  "job_titles": [
+
+    {
+      "id": "title-business-development-manager",
+      "canonical_name": "Business Development Manager",
+      "arabic_variants": [
+        "مدير تطوير الأعمال",
+        "مدير تطوير المبيعات"
+      ],
+      "english_variants": [
+        "BD Manager",
+        "Business Development Lead",
+        "Head of Business Development"
+      ],
+      "seniority_hint": "manager",
+      "common_sectors": ["tech", "consulting", "pif_ecosystem", "financial_services"],
+      "notes": "High-volume role in Saudi Arabia, particularly in Vision 2030-linked entities. Often requires government relationship experience alongside commercial skills. 'Head of BD' maps to senior-manager or director level in most Saudi organizations."
+    },
+
+    {
+      "id": "title-business-development-analyst",
+      "canonical_name": "Business Development Analyst",
+      "arabic_variants": [
+        "محلل تطوير الأعمال"
+      ],
+      "english_variants": [
+        "BD Analyst",
+        "Business Development Associate"
+      ],
+      "seniority_hint": "mid",
+      "common_sectors": ["tech", "consulting", "pif_ecosystem"],
+      "notes": "Entry-to-mid level. Typically supports a BD Manager with market research, proposal preparation, and CRM management."
+    },
+
+    {
+      "id": "title-investment-analyst",
+      "canonical_name": "Investment Analyst",
+      "arabic_variants": [
+        "محلل استثمار",
+        "محلل الاستثمارات"
+      ],
+      "english_variants": [
+        "Investment Associate",
+        "Research Analyst",
+        "Equity Analyst"
+      ],
+      "seniority_hint": "junior",
+      "common_sectors": ["financial_services", "pif_ecosystem", "consulting"],
+      "notes": "Entry-to-junior level in investment firms and sovereign wealth vehicles. CFA Level 1+ is a common screening criterion. Financial modeling proficiency is a baseline expectation."
+    },
+
+    {
+      "id": "title-investment-manager",
+      "canonical_name": "Investment Manager",
+      "arabic_variants": [
+        "مدير استثمار",
+        "مدير الاستثمارات"
+      ],
+      "english_variants": [
+        "Investment Director",
+        "Portfolio Manager",
+        "Fund Manager"
+      ],
+      "seniority_hint": "manager",
+      "common_sectors": ["financial_services", "pif_ecosystem"],
+      "notes": "Senior role in the Saudi investment ecosystem. CFA charterholder status is frequently required. Cross-sector exposure to Vision 2030 themes (tourism, entertainment, industrial) is increasingly valued."
+    },
+
+    {
+      "id": "title-licensing-specialist",
+      "canonical_name": "Licensing Specialist",
+      "arabic_variants": [
+        "أخصائي التراخيص",
+        "متخصص التراخيص"
+      ],
+      "english_variants": [
+        "Licensing Coordinator",
+        "Regulatory Affairs Specialist",
+        "Government Relations Specialist"
+      ],
+      "seniority_hint": "mid",
+      "common_sectors": ["government_adjacent", "pif_ecosystem", "real_estate", "healthcare", "food_beverage"],
+      "notes": "Saudi-specific role with high demand. Involves navigating licensing requirements across government portals (Balady, Qiwa, MISA, municipality systems). Arabic language proficiency is typically required."
+    },
+
+    {
+      "id": "title-project-manager",
+      "canonical_name": "Project Manager",
+      "arabic_variants": [
+        "مدير مشروع",
+        "مدير المشاريع"
+      ],
+      "english_variants": [
+        "PM",
+        "Program Manager",
+        "Delivery Manager"
+      ],
+      "seniority_hint": "manager",
+      "common_sectors": ["construction", "tech", "pif_ecosystem", "consulting", "government_adjacent"],
+      "notes": "One of the highest-volume role categories in Saudi Arabia given the scale of Vision 2030 infrastructure programs. PMP certification is a common requirement. Arabic is often required for government-adjacent projects. Scope varies enormously — from small IT projects to multi-billion-riyal megaprojects."
+    },
+
+    {
+      "id": "title-project-coordinator",
+      "canonical_name": "Project Coordinator",
+      "arabic_variants": [
+        "منسق مشاريع",
+        "مساعد مدير المشروع"
+      ],
+      "english_variants": [
+        "Project Administrator",
+        "PMO Coordinator"
+      ],
+      "seniority_hint": "junior",
+      "common_sectors": ["construction", "tech", "pif_ecosystem", "consulting"],
+      "notes": "Entry-to-junior level support under a Project Manager. Common as a Tamheer placement role for Saudi national graduates."
+    },
+
+    {
+      "id": "title-data-analyst",
+      "canonical_name": "Data Analyst",
+      "arabic_variants": [
+        "محلل بيانات",
+        "أخصائي تحليل البيانات"
+      ],
+      "english_variants": [
+        "Business Intelligence Analyst",
+        "BI Analyst",
+        "Reporting Analyst"
+      ],
+      "seniority_hint": "mid",
+      "common_sectors": ["tech", "financial_services", "government_adjacent", "telecom"],
+      "notes": "Growing demand across Saudi sectors. Mid-level roles typically require SQL, Excel, and Power BI. Python or R usage varies by organization maturity. Arabic-language reporting capability is valued in government and semi-government contexts."
+    },
+
+    {
+      "id": "title-senior-data-analyst",
+      "canonical_name": "Senior Data Analyst",
+      "arabic_variants": [
+        "محلل بيانات أول",
+        "محلل بيانات متقدم"
+      ],
+      "english_variants": [
+        "Lead Data Analyst",
+        "Principal Data Analyst"
+      ],
+      "seniority_hint": "senior",
+      "common_sectors": ["tech", "financial_services", "telecom"],
+      "notes": "Senior level implies ownership of analytical frameworks and mentoring junior analysts. Python proficiency and dashboard ownership are common expectations."
+    },
+
+    {
+      "id": "title-hr-specialist",
+      "canonical_name": "HR Specialist",
+      "arabic_variants": [
+        "أخصائي موارد بشرية",
+        "متخصص موارد بشرية"
+      ],
+      "english_variants": [
+        "Human Resources Specialist",
+        "People Operations Specialist",
+        "Talent Specialist"
+      ],
+      "seniority_hint": "mid",
+      "common_sectors": ["all"],
+      "notes": "In Saudi Arabia, Saudization compliance tracking and Qiwa platform management are standard responsibilities at this level. GOSI registration and HRDF claims experience is frequently required. CIPD or equivalent is a positive signal."
+    },
+
+    {
+      "id": "title-hr-business-partner",
+      "canonical_name": "HR Business Partner",
+      "arabic_variants": [
+        "شريك الأعمال للموارد البشرية",
+        "شريك موارد بشرية"
+      ],
+      "english_variants": [
+        "HRBP",
+        "People Partner"
+      ],
+      "seniority_hint": "senior",
+      "common_sectors": ["tech", "pif_ecosystem", "financial_services", "consulting"],
+      "notes": "Senior HR role requiring strategic partnership with business leaders. More common in multinational and PIF ecosystem entities than in traditional Saudi private sector companies."
+    },
+
+    {
+      "id": "title-strategy-analyst",
+      "canonical_name": "Strategy Analyst",
+      "arabic_variants": [
+        "محلل استراتيجية",
+        "أخصائي التخطيط الاستراتيجي"
+      ],
+      "english_variants": [
+        "Corporate Strategy Analyst",
+        "Strategic Planning Analyst",
+        "Strategy Associate"
+      ],
+      "seniority_hint": "junior",
+      "common_sectors": ["consulting", "pif_ecosystem", "government_adjacent"],
+      "notes": "Entry-to-junior level in strategy functions. High demand in PIF entities and government transformation programs. Consulting-style analytical skills (structuring problems, slide decks, Excel models) are baseline expectations."
+    },
+
+    {
+      "id": "title-tamheer-trainee-generic",
+      "canonical_name": "Tamheer Trainee",
+      "arabic_variants": [
+        "متدرب تمهير",
+        "مشارك في برنامج تمهير"
+      ],
+      "english_variants": [
+        "Tamheer Participant",
+        "HRDF Tamheer Trainee"
+      ],
+      "seniority_hint": "entry",
+      "common_sectors": ["all"],
+      "notes": "Tamheer is a distinct employment classification, not a standard internship. Compensation is subsidized by HRDF. Duration is fixed (up to 12 months). Tag with employment_type: tamheer — not full_time or internship."
+    },
+
+    {
+      "id": "title-tamheer-trainee-admin",
+      "canonical_name": "Tamheer Trainee — Administration",
+      "arabic_variants": [
+        "متدرب تمهير – الإدارة",
+        "متدرب إداري (تمهير)"
+      ],
+      "english_variants": [
+        "Administrative Trainee (Tamheer)",
+        "Office Administration Tamheer"
+      ],
+      "seniority_hint": "entry",
+      "common_sectors": ["all"],
+      "notes": "Administrative track Tamheer placement. Common in government-adjacent entities and large corporates."
+    },
+
+    {
+      "id": "title-tamheer-trainee-finance",
+      "canonical_name": "Tamheer Trainee — Finance",
+      "arabic_variants": [
+        "متدرب تمهير – المالية",
+        "متدرب مالي (تمهير)"
+      ],
+      "english_variants": [
+        "Finance Trainee (Tamheer)",
+        "Accounts Trainee (Tamheer)"
+      ],
+      "seniority_hint": "entry",
+      "common_sectors": ["financial_services", "saudi_corporate"],
+      "notes": "Finance track Tamheer placement. Typically involves accounts payable/receivable, budgeting support, and financial reporting under supervision."
+    },
+
+    {
+      "id": "title-tamheer-trainee-it",
+      "canonical_name": "Tamheer Trainee — IT",
+      "arabic_variants": [
+        "متدرب تمهير – تقنية المعلومات",
+        "متدرب تقنية (تمهير)"
+      ],
+      "english_variants": [
+        "IT Trainee (Tamheer)",
+        "Technology Trainee (Tamheer)"
+      ],
+      "seniority_hint": "entry",
+      "common_sectors": ["tech", "telecom", "saudi_corporate"],
+      "notes": "IT track Tamheer placement. Common in telecom companies and large technology departments of Saudi corporates."
+    }
+
+  ]
+}

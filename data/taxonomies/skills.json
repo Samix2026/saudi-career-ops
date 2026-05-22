@@ -1,0 +1,302 @@
+{
+  "metadata": {
+    "version": "0.1.0",
+    "last_reviewed": "2026-05-22",
+    "description": "Normalized skill registry for Saudi Career Ops. Each entry is a canonical skill with known aliases and language variants. This is a controlled vocabulary — additions require a review pass to avoid duplicates and maintain normalization quality.",
+    "category_values": [
+      "technical",
+      "analytical",
+      "domain",
+      "language",
+      "interpersonal",
+      "regulatory",
+      "tool",
+      "certification"
+    ],
+    "notes": "Skills are language-agnostic by design. The language_variants field carries the label in each language; the canonical_name is English. Aliases are used for matching only — they are not displayed to end users."
+  },
+
+  "skills": [
+
+    {
+      "id": "skill-pmp",
+      "canonical_name": "PMP Certification",
+      "aliases": [
+        "Project Management Professional",
+        "PMI PMP",
+        "PMP®"
+      ],
+      "category": "certification",
+      "language_variants": {
+        "en": "PMP Certification",
+        "ar": "شهادة محترف إدارة المشاريع"
+      },
+      "notes": "Issued by PMI. Widely required in Saudi government, semi-government, and infrastructure sectors. Frequently listed as preferred or required in project management roles across PIF ecosystem entities."
+    },
+
+    {
+      "id": "skill-excel",
+      "canonical_name": "Microsoft Excel",
+      "aliases": [
+        "Excel",
+        "MS Excel",
+        "Advanced Excel",
+        "Excel VBA"
+      ],
+      "category": "tool",
+      "language_variants": {
+        "en": "Microsoft Excel",
+        "ar": "مايكروسوفت إكسيل"
+      },
+      "notes": "Treat 'Advanced Excel' and 'Excel VBA' as a distinct skill signal — they imply financial modeling or data manipulation depth beyond basic spreadsheet use."
+    },
+
+    {
+      "id": "skill-power-bi",
+      "canonical_name": "Power BI",
+      "aliases": [
+        "Microsoft Power BI",
+        "PowerBI",
+        "Power BI Desktop",
+        "Power BI Service"
+      ],
+      "category": "tool",
+      "language_variants": {
+        "en": "Power BI",
+        "ar": "باور بي آي"
+      },
+      "notes": "Common in Saudi analytics and reporting roles. Often paired with Excel or SQL in job requirements. Frequently listed in government-adjacent data roles."
+    },
+
+    {
+      "id": "skill-sql",
+      "canonical_name": "SQL",
+      "aliases": [
+        "Structured Query Language",
+        "T-SQL",
+        "PL/SQL",
+        "MySQL",
+        "PostgreSQL",
+        "SQL Server"
+      ],
+      "category": "technical",
+      "language_variants": {
+        "en": "SQL",
+        "ar": "لغة الاستعلام الهيكلية"
+      },
+      "notes": "Aliases include dialect variants (T-SQL for SQL Server, PL/SQL for Oracle). Matching should normalize all variants to this canonical entry rather than treating them as separate skills."
+    },
+
+    {
+      "id": "skill-python",
+      "canonical_name": "Python",
+      "aliases": [
+        "Python 3",
+        "Python programming",
+        "Python scripting"
+      ],
+      "category": "technical",
+      "language_variants": {
+        "en": "Python",
+        "ar": "بايثون"
+      },
+      "notes": "Context matters. 'Python' in a data analyst job implies pandas/numpy. 'Python' in a backend role implies Django/FastAPI/Flask. The skill alone is underspecified; surrounding context should inform how it is weighted in matching."
+    },
+
+    {
+      "id": "skill-arabic-communication",
+      "canonical_name": "Arabic Communication",
+      "aliases": [
+        "Arabic language",
+        "Arabic (written)",
+        "Arabic (spoken)",
+        "native Arabic",
+        "professional Arabic",
+        "اللغة العربية",
+        "التواصل باللغة العربية"
+      ],
+      "category": "language",
+      "language_variants": {
+        "en": "Arabic Communication",
+        "ar": "مهارات التواصل باللغة العربية"
+      },
+      "notes": "Frequently listed as required in Saudi government and semi-government roles. Native proficiency is assumed for Saudi nationals. Expatriate candidates should evidence Arabic proficiency explicitly. Written Arabic is a separate signal from spoken Arabic in formal contexts."
+    },
+
+    {
+      "id": "skill-english-communication",
+      "canonical_name": "English Communication",
+      "aliases": [
+        "English language",
+        "business English",
+        "professional English",
+        "IELTS",
+        "TOEFL"
+      ],
+      "category": "language",
+      "language_variants": {
+        "en": "English Communication",
+        "ar": "مهارات التواصل باللغة الإنجليزية"
+      },
+      "notes": "Required in most multinational and PIF ecosystem roles. Proficiency signals: IELTS/TOEFL scores, education conducted in English, or prior roles at English-primary organizations."
+    },
+
+    {
+      "id": "skill-stakeholder-management",
+      "canonical_name": "Stakeholder Management",
+      "aliases": [
+        "stakeholder engagement",
+        "stakeholder communication",
+        "executive communication",
+        "managing stakeholders",
+        "إدارة أصحاب المصلحة"
+      ],
+      "category": "interpersonal",
+      "language_variants": {
+        "en": "Stakeholder Management",
+        "ar": "إدارة أصحاب المصلحة"
+      },
+      "notes": "High-frequency soft skill in Saudi project management and government-adjacent roles. Often implied rather than stated — look for signals such as 'reporting to C-suite', 'cross-functional coordination', or 'ministry liaison'."
+    },
+
+    {
+      "id": "skill-financial-modeling",
+      "canonical_name": "Financial Modeling",
+      "aliases": [
+        "financial modelling",
+        "DCF modeling",
+        "valuation modeling",
+        "three-statement model",
+        "LBO model",
+        "نمذجة مالية"
+      ],
+      "category": "analytical",
+      "language_variants": {
+        "en": "Financial Modeling",
+        "ar": "النمذجة المالية"
+      },
+      "notes": "Core skill in investment, PE, and corporate finance roles across Saudi banks, PIF entities, and advisory firms. Depth varies: entry-level implies Excel models; senior roles imply structural modeling and scenario analysis. DCF and LBO variants should be treated as stronger signals than generic 'financial modeling'."
+    },
+
+    {
+      "id": "skill-compliance",
+      "canonical_name": "Compliance",
+      "aliases": [
+        "regulatory compliance",
+        "corporate compliance",
+        "AML compliance",
+        "KYC",
+        "SAMA compliance",
+        "CMA compliance",
+        "الامتثال",
+        "الامتثال التنظيمي"
+      ],
+      "category": "regulatory",
+      "language_variants": {
+        "en": "Compliance",
+        "ar": "الامتثال"
+      },
+      "notes": "Saudi-specific regulators appear as aliases: SAMA (Saudi Central Bank) compliance is required in banking and fintech roles; CMA compliance applies to capital markets. Generic 'compliance' is a weaker signal than a sector-specific variant."
+    },
+
+    {
+      "id": "skill-project-management",
+      "canonical_name": "Project Management",
+      "aliases": [
+        "program management",
+        "project delivery",
+        "PMO",
+        "project coordination",
+        "Agile",
+        "Scrum",
+        "PRINCE2",
+        "waterfall",
+        "إدارة المشاريع",
+        "إدارة البرامج"
+      ],
+      "category": "domain",
+      "language_variants": {
+        "en": "Project Management",
+        "ar": "إدارة المشاريع"
+      },
+      "notes": "Broad category. Methodology aliases (Agile, Scrum, PRINCE2, waterfall) are meaningful sub-signals. PMO implies a specific organizational function, not just project execution. In Saudi market contexts, large-scale infrastructure and Vision 2030 delivery experience carries additional weight."
+    },
+
+    {
+      "id": "skill-data-analysis",
+      "canonical_name": "Data Analysis",
+      "aliases": [
+        "data analytics",
+        "quantitative analysis",
+        "statistical analysis",
+        "تحليل البيانات",
+        "التحليل الكمي"
+      ],
+      "category": "analytical",
+      "language_variants": {
+        "en": "Data Analysis",
+        "ar": "تحليل البيانات"
+      },
+      "notes": "Distinct from data engineering (pipeline focus) and data science (modeling focus). Most Saudi analytics roles at the mid-level imply Excel, SQL, and Power BI rather than Python or R."
+    },
+
+    {
+      "id": "skill-business-development",
+      "canonical_name": "Business Development",
+      "aliases": [
+        "BD",
+        "biz dev",
+        "sales development",
+        "partnership development",
+        "growth",
+        "تطوير الأعمال"
+      ],
+      "category": "domain",
+      "language_variants": {
+        "en": "Business Development",
+        "ar": "تطوير الأعمال"
+      },
+      "notes": "Common in PIF ecosystem entities and Vision 2030-linked companies. In the Saudi context, BD often involves government relationship management and licensing navigation alongside commercial development."
+    },
+
+    {
+      "id": "skill-investment-analysis",
+      "canonical_name": "Investment Analysis",
+      "aliases": [
+        "investment research",
+        "equity research",
+        "portfolio analysis",
+        "asset management",
+        "تحليل الاستثمار",
+        "بحوث الاستثمار"
+      ],
+      "category": "analytical",
+      "language_variants": {
+        "en": "Investment Analysis",
+        "ar": "تحليل الاستثمار"
+      },
+      "notes": "High demand across Saudi sovereign wealth, family offices, and PIF-affiliated entities. CFA designation is a strong positive signal alongside this skill. Familiarity with Vision 2030 investment themes (tourism, entertainment, industrial) is increasingly relevant."
+    },
+
+    {
+      "id": "skill-hr-management",
+      "canonical_name": "Human Resources Management",
+      "aliases": [
+        "HR",
+        "human resources",
+        "people management",
+        "talent acquisition",
+        "workforce planning",
+        "إدارة الموارد البشرية",
+        "الموارد البشرية"
+      ],
+      "category": "domain",
+      "language_variants": {
+        "en": "Human Resources Management",
+        "ar": "إدارة الموارد البشرية"
+      },
+      "notes": "Saudi-specific dimension: Saudization compliance is a core HR responsibility, not an optional add-on. Familiarity with Qiwa and GOSI is expected in senior HR roles. CIPD or SHRM certifications are recognized."
+    }
+
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "metadata": {
+    "version": "0.1.0",
+    "last_reviewed": "2026-05-22",
+    "description": "Employment type taxonomy for Saudi Career Ops. Covers standard employment categories and Saudi-specific classifications. Entries align with the EmploymentType enum in ingestion/models/job_posting.py.",
+    "model_enum_ref": "ingestion/models/job_posting.py:EmploymentType",
+    "notes": "Saudi-specific types (tamheer, coop) must not be conflated with internship or contract. They have distinct legal, compensation, and regulatory characteristics under Saudi labor law and HRDF programs."
+  },
+
+  "employment_types": [
+
+    {
+      "id": "et-full-time",
+      "canonical_name": "Full-Time",
+      "model_value": "full_time",
+      "arabic_variants": [
+        "دوام كامل",
+        "وظيفة دائمة",
+        "توظيف دائم"
+      ],
+      "english_variants": [
+        "Permanent",
+        "Full time",
+        "FTE",
+        "Regular employment"
+      ],
+      "description": "Standard permanent employment with a full-time schedule. In Saudi Arabia, this implies an indefinite-term contract unless stated as fixed-term.",
+      "saudi_context": "End-of-service gratuity (مكافأة نهاية الخدمة) accrues under Saudi Labor Law. GOSI enrollment is mandatory for both Saudi and expatriate employees."
+    },
+
+    {
+      "id": "et-part-time",
+      "canonical_name": "Part-Time",
+      "model_value": "part_time",
+      "arabic_variants": [
+        "دوام جزئي",
+        "عمل بدوام جزئي"
+      ],
+      "english_variants": [
+        "Part time",
+        "Part-time employment"
+      ],
+      "description": "Employment for fewer hours than a standard full-time schedule. Saudi Labor Law permits part-time employment; GOSI contributions apply proportionally.",
+      "saudi_context": "Part-time work for Saudi nationals may count toward Nitaqat depending on working hours relative to full-time. Ministry of Human Resources issued Part-Time Work regulations under Vision 2030 labor reforms."
+    },
+
+    {
+      "id": "et-contract",
+      "canonical_name": "Contract",
+      "model_value": "contract",
+      "arabic_variants": [
+        "عقد مؤقت",
+        "عقد محدد المدة",
+        "عمل تعاقدي"
+      ],
+      "english_variants": [
+        "Fixed-term contract",
+        "Temporary contract",
+        "Contractor",
+        "Consultant (contracted)"
+      ],
+      "description": "Fixed-term employment for a defined period or project scope. Common in infrastructure projects and government transformation initiatives.",
+      "saudi_context": "A fixed-term contract renewed more than once or extended beyond its term may, under certain circumstances, be treated as indefinite under Saudi Labor Law. Legal review is advised for contract structures."
+    },
+
+    {
+      "id": "et-internship",
+      "canonical_name": "Internship",
+      "model_value": "internship",
+      "arabic_variants": [
+        "تدريب",
+        "تدريب صيفي",
+        "متدرب"
+      ],
+      "english_variants": [
+        "Intern",
+        "Summer intern",
+        "Graduate intern",
+        "Student intern"
+      ],
+      "description": "Temporary training placement for students or recent graduates outside of any government-sponsored program. Not Tamheer — standard internships are commercial arrangements without HRDF subsidy.",
+      "saudi_context": "Distinct from Tamheer (HRDF-subsidized) and Co-op (university credit). Standard internships are common in multinational companies and startup ecosystem entities."
+    },
+
+    {
+      "id": "et-tamheer",
+      "canonical_name": "Tamheer",
+      "model_value": "tamheer",
+      "arabic_variants": [
+        "تمهير",
+        "برنامج تمهير",
+        "متدرب تمهير"
+      ],
+      "english_variants": [
+        "Tamheer Program",
+        "HRDF Tamheer",
+        "On-the-job training (Tamheer)"
+      ],
+      "description": "Saudi government-sponsored on-the-job training for Saudi national graduates, administered by HRDF. Compensation is subsidized. Duration is up to 12 months. Not standard employment.",
+      "saudi_context": "The host company is not the legal employer for GOSI purposes during the placement. Eligibility is restricted to Saudi nationals meeting HRDF criteria. Tamheer counts toward Nitaqat under specific conditions. Verify current rules at hrdf.org.sa."
+    },
+
+    {
+      "id": "et-coop",
+      "canonical_name": "Co-op Training",
+      "model_value": "coop",
+      "arabic_variants": [
+        "تدريب تعاوني",
+        "برنامج التدريب التعاوني",
+        "الجامعة التعاونية"
+      ],
+      "english_variants": [
+        "Cooperative Education",
+        "Co-op Placement",
+        "University Cooperative Training"
+      ],
+      "description": "Structured work placement integrated into a university degree program, administered by the student's institution. Students receive academic credit and often a stipend.",
+      "saudi_context": "Saudi universities (KFUPM, KAUST, KAU, Princess Nourah, and others) operate formal co-op programs. Host companies may qualify for Nitaqat consideration depending on the program and student nationality. Verify current Nitaqat rules with the Ministry of Human Resources."
+    },
+
+    {
+      "id": "et-remote",
+      "canonical_name": "Remote",
+      "model_value": "remote",
+      "arabic_variants": [
+        "عن بُعد",
+        "عمل عن بعد",
+        "وظيفة عن بعد"
+      ],
+      "english_variants": [
+        "Fully remote",
+        "Work from home",
+        "WFH",
+        "100% remote"
+      ],
+      "description": "Role performed entirely outside a company office, with no on-site attendance requirement.",
+      "saudi_context": "Fully remote roles are less common in Saudi Arabia than in other markets. Most 'remote' postings in the Saudi context are actually hybrid. Remote arrangements may affect GOSI enrollment and Nitaqat count — confirm with the employer."
+    },
+
+    {
+      "id": "et-hybrid",
+      "canonical_name": "Hybrid",
+      "model_value": "hybrid",
+      "arabic_variants": [
+        "هجين",
+        "عمل هجين",
+        "دوام مختلط"
+      ],
+      "english_variants": [
+        "Hybrid work",
+        "Flexible work",
+        "Blended"
+      ],
+      "description": "Role split between office attendance and remote work on a defined or flexible schedule.",
+      "saudi_context": "Growing adoption in tech and multinational companies. Government and semi-government entities typically require full on-site attendance."
+    },
+
+    {
+      "id": "et-on-site",
+      "canonical_name": "On-Site",
+      "model_value": "on_site",
+      "arabic_variants": [
+        "حضوري",
+        "دوام حضوري",
+        "في الموقع"
+      ],
+      "english_variants": [
+        "In-office",
+        "In-person",
+        "On-premise",
+        "Office-based"
+      ],
+      "description": "Role requires full on-site attendance at the employer's location. The default assumption for most Saudi job postings unless otherwise stated.",
+      "saudi_context": "Standard for government, semi-government, banking, and large corporate employers. Megaproject roles (Neom, Qiddiya, Red Sea) may require on-site at the project location, which may be remote from major cities."
+    }
+
+  ]
+}
