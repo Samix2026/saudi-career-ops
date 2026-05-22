@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "saudi-job-sources.schema.json",
+  "title": "Saudi Job Sources Registry",
+  "description": "Validates data/saudi-job-sources.json. Each source entry represents a job platform relevant to the Saudi labor market.",
+  "type": "object",
+  "required": ["metadata", "sources"],
+  "additionalProperties": false,
+
+  "properties": {
+
+    "metadata": {
+      "type": "object",
+      "required": [
+        "version",
+        "last_reviewed",
+        "maintainer",
+        "description",
+        "status_values",
+        "scraping_complexity_values",
+        "saudi_relevance_values"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Semantic version of this registry file."
+        },
+        "last_reviewed": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "ISO 8601 date of the last manual review."
+        },
+        "maintainer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status_values": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Enumerated values permitted in the status field of each source entry."
+        },
+        "scraping_complexity_values": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Enumerated values permitted in the scraping_complexity field of each source entry."
+        },
+        "saudi_relevance_values": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Enumerated values permitted in the saudi_relevance field of each source entry."
+        }
+      }
+    },
+
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": false,
+      "description": "Registry of job sources. Each entry represents one platform or portal.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "category",
+          "website",
+          "language_support",
+          "authentication_required",
+          "scraping_complexity",
+          "saudi_relevance",
+          "status",
+          "notes"
+        ],
+        "additionalProperties": false,
+
+        "properties": {
+
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+            "description": "Unique identifier. Lowercase kebab-case only. Used as a stable reference key across the system."
+          },
+
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable display name of the platform or portal."
+          },
+
+          "category": {
+            "type": "string",
+            "enum": [
+              "government_platform",
+              "saudi_corporate",
+              "pif_ecosystem",
+              "global_aggregator",
+              "regional_aggregator",
+              "ats_platform",
+              "consulting",
+              "tech_company",
+              "startup_ecosystem"
+            ],
+            "description": "Classification of the source by type. Extend this enum when adding entries in new categories."
+          },
+
+          "website": {
+            "$comment": "Accepts a URI string or null. Null is used when the platform has no unified public URL (e.g., Taleo deployments are employer-specific).",
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https?://"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+
+          "language_support": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": ["ar", "en"],
+              "description": "ISO 639-1 language code. Extend the enum if additional languages are encountered."
+            },
+            "description": "Languages in which this platform serves job content."
+          },
+
+          "authentication_required": {
+            "type": "boolean",
+            "description": "Whether accessing job listings requires an authenticated session."
+          },
+
+          "scraping_complexity": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "unknown"],
+            "$comment": "The metadata field in the data file lists 'not_applicable' as a valid value. This schema uses 'unknown' instead for semantic clarity. Align the metadata field when this schema is adopted as authoritative.",
+            "description": "Relative difficulty of automated data extraction. 'low' = static HTML with stable structure. 'medium' = dynamic content or pagination required. 'high' = authentication, rate limiting, or legal constraints. 'unknown' = not assessed."
+          },
+
+          "saudi_relevance": {
+            "type": "string",
+            "enum": ["primary", "secondary", "peripheral"],
+            "$comment": "Values use primary/secondary/peripheral to match the existing dataset. A future normalization to high/medium/low is possible but requires migrating all entries.",
+            "description": "How directly relevant this source is for Saudi market job intelligence. 'primary' = core Saudi source. 'secondary' = regional or international with meaningful Saudi content. 'peripheral' = limited Saudi-specific content."
+          },
+
+          "status": {
+            "type": "string",
+            "enum": ["active", "planned", "deprecated", "unverified"],
+            "description": "Operational status of this registry entry. 'active' = known to be live and usable. 'planned' = identified but not yet integrated. 'deprecated' = no longer relevant. 'unverified' = existence confirmed but details not validated."
+          },
+
+          "notes": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Contextual notes on the source: hiring patterns, access constraints, content characteristics, and Saudi market relevance. Must be substantive."
+          }
+
+        }
+      }
+    }
+  }
+}
