@@ -1,0 +1,43 @@
+{
+  "_note": "Illustrative input format for candidate/parser.parse_candidate(). All data is synthetic.",
+  "id": "cand-example-001",
+  "name": "Layla Al-Qahtani",
+  "الاسم بالعربي": "ليلى القحطاني",
+  "nationality_status": "saudi_national",
+  "years_experience": 4.0,
+  "skills": ["Python", "SQL", "Power BI", "إدارة المشاريع"],
+  "certifications": [
+    { "name": "PMP Certification", "issuer": "PMI", "year": 2023 }
+  ],
+  "languages": [
+    { "language": "العربية", "proficiency": "native" },
+    { "language": "English", "proficiency": "professional" }
+  ],
+  "preferred_locations": ["الرياض"],
+  "willing_to_relocate": false,
+  "employment_preferences": ["full time"],
+  "saudi_program_eligibility": ["hrdf_subsidy"],
+  "experiences": [
+    {
+      "title": "Data Analyst",
+      "company": "Al-Wafa Technology",
+      "start_year": 2022,
+      "is_current": true
+    },
+    {
+      "title": "Tamheer Trainee – Analytics",
+      "company": "SAMA",
+      "start_year": 2021,
+      "end_year": 2022,
+      "is_training": true
+    }
+  ],
+  "education": [
+    {
+      "institution": "King Abdulaziz University",
+      "degree": "Bachelor of Science",
+      "field_of_study": "Computer Science",
+      "graduation_year": 2021
+    }
+  ]
+}

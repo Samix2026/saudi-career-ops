@@ -1,0 +1,135 @@
+{
+  "_metadata": {
+    "description": "Synthetic candidate profiles for development and testing. No real personal data.",
+    "version": "1.0.0",
+    "updated": "2026-05-22",
+    "note": "All names, employers, and education records are fabricated. Do not use for any purpose beyond testing the ingestion pipeline."
+  },
+  "candidates": [
+    {
+      "_comment": "Saudi national, bilingual, data analysis background with a Tamheer placement in history.",
+      "id": "cand-sample-sa-001",
+      "name": "Nora Al-Harbi",
+      "الاسم بالعربي": "نورة الحربي",
+      "nationality_status": "saudi_national",
+      "years_experience": 3.5,
+      "seniority": "mid",
+      "skills": [
+        "Python",
+        "SQL",
+        "Power BI",
+        "إدارة المشاريع",
+        "Excel",
+        "Stakeholder Management"
+      ],
+      "certifications": [
+        {
+          "name": "PMP Certification",
+          "issuer": "PMI",
+          "year": 2024
+        }
+      ],
+      "languages": [
+        { "language": "العربية", "proficiency": "native" },
+        { "language": "English", "proficiency": "professional" }
+      ],
+      "preferred_locations": ["الرياض", "Remote"],
+      "willing_to_relocate": false,
+      "employment_preferences": ["full time", "دوام كامل"],
+      "saudi_program_eligibility": ["hrdf_subsidy"],
+      "experiences": [
+        {
+          "title": "Data Analyst",
+          "company": "Al-Wafa Technology Solutions",
+          "start_year": 2022,
+          "end_year": null,
+          "is_current": true,
+          "is_training": false
+        },
+        {
+          "title": "Business Intelligence Analyst",
+          "company": "Noor Retail Group",
+          "start_year": 2021,
+          "end_year": 2022,
+          "is_current": false,
+          "is_training": false
+        },
+        {
+          "title": "Tamheer Trainee – Data and Reporting",
+          "company": "Ministry of Finance",
+          "start_year": 2020,
+          "end_year": 2021,
+          "is_current": false,
+          "is_training": true
+        }
+      ],
+      "education": [
+        {
+          "institution": "King Saud University",
+          "degree": "Bachelor of Science",
+          "field_of_study": "Management Information Systems",
+          "graduation_year": 2020,
+          "is_current": false
+        }
+      ]
+    },
+    {
+      "_comment": "Expatriate software/data engineer, English-primary, technical skills focus.",
+      "id": "cand-sample-ex-001",
+      "name": "David Chen",
+      "nationality_status": "expatriate",
+      "years_experience": 6.0,
+      "seniority": "senior",
+      "skills": [
+        "Python",
+        "SQL",
+        "Power BI",
+        "Excel",
+        "Project Management"
+      ],
+      "certifications": [],
+      "languages": [
+        { "language": "English", "proficiency": "native" }
+      ],
+      "preferred_locations": ["Riyadh"],
+      "willing_to_relocate": true,
+      "employment_preferences": ["full time"],
+      "saudi_program_eligibility": [],
+      "experiences": [
+        {
+          "title": "Senior Data Engineer",
+          "company": "Gulf Analytics Partners",
+          "start_year": 2022,
+          "end_year": null,
+          "is_current": true,
+          "is_training": false
+        },
+        {
+          "title": "Data Engineer",
+          "company": "Meridian Systems FZE",
+          "start_year": 2019,
+          "end_year": 2022,
+          "is_current": false,
+          "is_training": false
+        },
+        {
+          "title": "Junior Data Analyst",
+          "company": "Atlas Consulting",
+          "start_year": 2018,
+          "end_year": 2019,
+          "is_current": false,
+          "is_training": false
+        }
+      ],
+      "education": [
+        {
+          "institution": "National University of Singapore",
+          "degree": "Bachelor of Computing",
+          "field_of_study": "Computer Science",
+          "graduation_year": 2018,
+          "is_current": false
+        }
+      ]
+    }
+  ]
+}
