@@ -1,0 +1,52 @@
+{
+  "_note": "Synthetic data only. All company names, job IDs, and descriptions are fabricated for testing purposes. These records do not represent real job postings or real employers.",
+  "generated_at": "2026-05-22T00:00:00Z",
+  "schema_version": "0.1.0",
+  "records": [
+
+    {
+      "id": "bayt:sa-2026-ar-001",
+      "source": "bayt",
+      "source_url": null,
+      "fetched_at": "2026-05-22T08:00:00Z",
+      "title": "مدير مشاريع تقنية المعلومات",
+      "company": "شركة الأفق للتقنية",
+      "location": "الرياض، المملكة العربية السعودية",
+      "description": "تسعى شركة الأفق للتقنية إلى تعيين مدير مشاريع متمرس للإشراف على تنفيذ مشاريع تقنية المعلومات في قطاع الخدمات المالية.\n\nالمسؤوليات الرئيسية:\n- إدارة محفظة مشاريع تقنية المعلومات من البداية حتى التسليم\n- التنسيق مع الفرق الفنية والإدارات المعنية\n- إعداد التقارير الدورية للإدارة التنفيذية\n- ضمان الالتزام بالجداول الزمنية والميزانيات المحددة\n- تطبيق منهجيات إدارة المشاريع (PMP، Agile، PRINCE2)\n\nالمتطلبات:\n- بكالوريوس في تقنية المعلومات أو الحاسب الآلي أو ما يعادله\n- خبرة لا تقل عن 7 سنوات في إدارة مشاريع تقنية المعلومات\n- شهادة PMP أو PRINCE2 تُعدّ ميزة\n- إجادة اللغة العربية والإنجليزية\n- يُفضَّل أن يكون المتقدم من المواطنين السعوديين",
+      "language": "ar",
+      "employment_type": "full_time",
+      "seniority": "manager",
+      "skills": [],
+      "saudi_relevance": "primary",
+      "saudization_signal": "يُفضَّل أن يكون المتقدم من المواطنين السعوديين",
+      "salary_hint": null,
+      "posted_at": "2026-05-18T00:00:00Z",
+      "expires_at": null
+    },
+
+    {
+      "id": "lever:example-infra-co:eng-2026-003",
+      "source": "lever",
+      "source_url": null,
+      "fetched_at": "2026-05-22T08:15:00Z",
+      "title": "Senior Cloud Infrastructure Engineer",
+      "company": "Gulf Digital Infrastructure (GDI)",
+      "location": "Riyadh, Saudi Arabia",
+      "description": "Gulf Digital Infrastructure is building large-scale cloud and data center capacity to support Vision 2030 digital transformation programs. We are hiring a Senior Cloud Infrastructure Engineer to join our Riyadh team.\n\nResponsibilities:\n- Design, deploy, and maintain cloud infrastructure on AWS and Azure across multiple availability zones\n- Define infrastructure-as-code standards using Terraform and Ansible\n- Collaborate with security and compliance teams to ensure alignment with CITC and NCA regulatory requirements\n- Mentor junior engineers and conduct technical reviews\n- On-call rotation for production systems\n\nRequirements:\n- 6+ years of experience in cloud infrastructure engineering\n- Hands-on experience with AWS (EC2, EKS, RDS, VPC) and Azure (AKS, VNet, Azure AD)\n- Proficiency with Terraform, Ansible, and CI/CD pipelines (GitHub Actions or equivalent)\n- Experience in regulated industries (financial services, government, or telecoms) is preferred\n- Saudi nationals are encouraged to apply; relocation support available for qualified candidates\n\nCompensation:\n- Monthly package: 22,000–30,000 SAR depending on experience\n- Housing and transportation allowances included\n- Annual discretionary bonus",
+      "language": "en",
+      "employment_type": "full_time",
+      "seniority": "senior",
+      "skills": [],
+      "saudi_relevance": "primary",
+      "saudization_signal": "Saudi nationals are encouraged to apply",
+      "salary_hint": {
+        "raw": "22,000–30,000 SAR",
+        "currency": "SAR",
+        "is_estimated": false
+      },
+      "posted_at": "2026-05-20T00:00:00Z",
+      "expires_at": null
+    }
+
+  ]
+}
