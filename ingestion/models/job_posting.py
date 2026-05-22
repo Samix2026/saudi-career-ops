@@ -28,7 +28,11 @@ class EmploymentType(str, Enum):
     CONTRACT = "contract"
     TAMHEER = "tamheer"       # Government-sponsored on-the-job training (Saudi-specific)
     INTERNSHIP = "internship"
+    COOP = "coop"              # University cooperative training (Saudi-specific)
     FREELANCE = "freelance"
+    REMOTE = "remote"
+    HYBRID = "hybrid"
+    ON_SITE = "on_site"
     UNKNOWN = "unknown"
 
 

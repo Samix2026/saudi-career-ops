@@ -78,6 +78,75 @@ This separation means:
 
 ---
 
+## Taxonomy Matching
+
+The parser uses `data/taxonomies/` as a controlled vocabulary for skills,
+employment types, job titles, and Saudi programs. This replaces ad-hoc keyword
+guessing with normalized IDs that are stable across the pipeline.
+
+### How it works
+
+`TaxonomyMatcher` loads four taxonomy files on first use and builds in-memory
+lookup indexes keyed by lowercase phrase:
+
+| Index | Source file | Returns |
+|-------|-------------|---------|
+| Skills | `skills.json` | `skill-*` IDs |
+| Job titles | `job-titles.json` | `(title-* ID, seniority_hint)` |
+| Employment types | `employment-types.json` | `EmploymentType` enum value |
+| Saudi programs | `saudi-programs.json` | `prog-*` IDs |
+
+Every `canonical_name`, `alias`, and `language_variants` entry from each taxonomy
+file becomes a key in the relevant index. This means Arabic and English variants
+are matched equally without a translation step.
+
+### Matching strategy
+
+Phrases are sorted longest-first before scanning. This means `"Power BI Desktop"`
+is checked before `"Power BI"`, and `"Advanced Excel"` before `"Excel"`. Matched
+character spans are marked consumed, preventing a shorter sub-phrase from claiming
+the same text span.
+
+**Arabic conjunction prefix handling:** Arabic conjunctions (و ف ب ل ك) attach to
+the following word without a space — `"وباور بي آي"` means `"and Power BI"`. The
+matcher applies a second-pass pattern that recognizes these prefixes, so an Arabic
+skill that appears after a conjunction is still matched correctly.
+
+### Tamheer priority
+
+`match_employment_type()` always checks for Tamheer before any other employment
+type. Arabic terms for on-the-job training (`متدرب`, `تدريب`) overlap with generic
+internship vocabulary. Tamheer must be classified as `EmploymentType.TAMHEER`, not
+`INTERNSHIP`, because they have different legal, compensation, and Nitaqat implications.
+
+### Graceful degradation
+
+If a taxonomy file is missing or unreadable, `TaxonomyMatcher` logs a warning and
+skips that index. The remaining indexes still function. Existing regex-based
+fallbacks remain active for employment type detection when the taxonomy is
+unavailable.
+
+### Returned values
+
+Skills extraction returns taxonomy IDs (`skill-sql`, `skill-python`, etc.), not
+raw text spans. These IDs are stable references that can be joined against the
+taxonomy for display names, categories, or Arabic labels without re-parsing.
+
+### Running the smoke tests
+
+```bash
+python scripts/smoke-test-parser.py           # pass/fail summary
+python scripts/smoke-test-parser.py --verbose # all checks with detail
+```
+
+The smoke tests assert against known Arabic and English job texts and cover:
+language detection, seniority extraction (English and Arabic titles), employment
+type matching (including Tamheer), taxonomy-backed skills extraction in both
+languages, salary hint detection (number-first and currency-first formats),
+saudization signal detection, and Saudi program mention detection.
+
+---
+
 ## Directory Structure
 
 ```
