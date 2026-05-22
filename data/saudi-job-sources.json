@@ -1,0 +1,405 @@
+{
+  "metadata": {
+    "version": "0.1.0",
+    "last_reviewed": "2026-05-22",
+    "maintainer": "saudi-career-ops",
+    "description": "Registry of job sources relevant to the Saudi labor market. Entries reflect publicly known information. No scraping is implemented — this file is a reference for ingestion planning.",
+    "status_values": ["active", "planned", "deprecated", "unverified"],
+    "scraping_complexity_values": ["low", "medium", "high", "not_applicable"],
+    "saudi_relevance_values": ["primary", "secondary", "peripheral"]
+  },
+
+  "sources": [
+
+    {
+      "id": "jadarat",
+      "name": "Jadarat",
+      "category": "government_platform",
+      "website": "https://jadarat.sa",
+      "language_support": ["ar", "en"],
+      "authentication_required": true,
+      "scraping_complexity": "high",
+      "saudi_relevance": "primary",
+      "status": "planned",
+      "notes": "Operated by HRDF. Primary government platform for Saudi national talent development and job matching. Roles here are often Nitaqat-sensitive and linked to Vision 2030 programs. Authentication via Absher. API access not publicly documented."
+    },
+
+    {
+      "id": "qiwa-jobs",
+      "name": "Qiwa — Job Opportunities",
+      "category": "government_platform",
+      "website": "https://qiwa.sa",
+      "language_support": ["ar", "en"],
+      "authentication_required": true,
+      "scraping_complexity": "high",
+      "saudi_relevance": "primary",
+      "status": "planned",
+      "notes": "Ministry of Human Resources and Social Development platform. Job posting function is secondary to its primary role as a labor compliance system. Roles posted here carry regulatory weight. No public API documented at time of writing."
+    },
+
+    {
+      "id": "taqat",
+      "name": "Taqat",
+      "category": "government_platform",
+      "website": "https://taqat.sa",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "HRDF-affiliated national employment portal. Focused on Saudi nationals. Covers both public and private sector roles. Postings are predominantly Arabic. Browsable without login."
+    },
+
+    {
+      "id": "tamheer-portal",
+      "name": "Tamheer Program Portal",
+      "category": "government_platform",
+      "website": "https://www.hrdf.org.sa/tamheer",
+      "language_support": ["ar"],
+      "authentication_required": true,
+      "scraping_complexity": "high",
+      "saudi_relevance": "primary",
+      "status": "planned",
+      "notes": "HRDF-run on-the-job training program for Saudi nationals. Placements are distinct from employment — different contract, compensation structure, and duration. Eligibility criteria must be verified against official source at time of use."
+    },
+
+    {
+      "id": "aramco-careers",
+      "name": "Saudi Aramco Careers",
+      "category": "saudi_corporate",
+      "website": "https://www.aramco.com/en/careers",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "One of the largest single employers in Saudi Arabia. Roles span technical, operational, and corporate functions. High volume of postings. Compensation benchmarks are frequently referenced across the Saudi market. English-primary for professional roles."
+    },
+
+    {
+      "id": "stc-careers",
+      "name": "STC Careers",
+      "category": "saudi_corporate",
+      "website": "https://www.stc.com.sa/en/careers",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "Saudi Telecom Company. Semi-government, PIF-affiliated. Major employer across tech, engineering, commercial, and corporate functions. Strong Saudization record. Mix of Arabic and English job postings."
+    },
+
+    {
+      "id": "sabic-careers",
+      "name": "SABIC Careers",
+      "category": "saudi_corporate",
+      "website": "https://www.sabic.com/en/careers",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "Saudi Basic Industries Corporation. Majority owned by Saudi Aramco. Petrochemicals and materials focus. Large employer in Jubail, Yanbu, and Riyadh. Roles often require industry-specific technical credentials."
+    },
+
+    {
+      "id": "samba-snb-careers",
+      "name": "Saudi National Bank Careers",
+      "category": "saudi_corporate",
+      "website": "https://www.alahli.com/en-us/careers",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "Largest bank in Saudi Arabia by assets. Formed from merger of NCB and Samba. Significant employer in banking, finance, and technology roles. Strong Saudization compliance required in financial sector."
+    },
+
+    {
+      "id": "neom-careers",
+      "name": "Neom Careers",
+      "category": "pif_ecosystem",
+      "website": "https://www.neom.com/en-us/careers",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "PIF-funded megaproject headquartered in Tabuk region. Predominantly English-language postings. Roles span urban planning, technology, construction, and corporate functions. Compensation packages are typically above market. High volume of senior and specialist roles. Expatriate-friendly."
+    },
+
+    {
+      "id": "diriyah-careers",
+      "name": "Diriyah Gate Development Authority Careers",
+      "category": "pif_ecosystem",
+      "website": "https://www.dgda.gov.sa/en/careers",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "PIF entity responsible for development of the Diriyah cultural and heritage district. Roles concentrated in heritage, tourism, hospitality, real estate, and operations. Mix of Arabic and English postings."
+    },
+
+    {
+      "id": "red-sea-global-careers",
+      "name": "Red Sea Global Careers",
+      "category": "pif_ecosystem",
+      "website": "https://www.redseaglobal.com/en/careers",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "PIF entity developing the Red Sea and Amaala tourism projects. Roles in hospitality, sustainability, operations, and project delivery. English-primary. Recruitment is active during major project phases."
+    },
+
+    {
+      "id": "qiddiya-careers",
+      "name": "Qiddiya Investment Company Careers",
+      "category": "pif_ecosystem",
+      "website": "https://www.qiddiya.com/en/careers",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "PIF entity developing the Qiddiya entertainment and sports city near Riyadh. Roles in entertainment, sports, real estate, and project management. Mix of Arabic and English."
+    },
+
+    {
+      "id": "pif-direct-careers",
+      "name": "Public Investment Fund — Direct Careers",
+      "category": "pif_ecosystem",
+      "website": "https://www.pif.gov.sa/en/careers",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "low",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "Direct PIF corporate roles, distinct from portfolio companies. Lower posting volume than portfolio entities. Roles tend to be senior, finance, and strategy focused. English-primary for professional roles."
+    },
+
+    {
+      "id": "linkedin-jobs",
+      "name": "LinkedIn Jobs",
+      "category": "global_aggregator",
+      "website": "https://www.linkedin.com/jobs",
+      "language_support": ["ar", "en"],
+      "authentication_required": true,
+      "scraping_complexity": "high",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "Dominant discovery surface for professional roles in Saudi Arabia. High volume, inconsistent posting quality. Requires authenticated session for full access. Rate limits are enforced. LinkedIn's terms of service prohibit automated scraping. Any ingestion must comply with these terms. Arabic and English postings are mixed; language detection is required."
+    },
+
+    {
+      "id": "bayt",
+      "name": "Bayt.com",
+      "category": "regional_aggregator",
+      "website": "https://www.bayt.com",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "Dominant job board for the Arab world. High volume of Saudi postings. Strong Arabic-language coverage. Browsable without authentication for most listings. Regional focus means more Saudi-specific role categories than global platforms."
+    },
+
+    {
+      "id": "gulftalent",
+      "name": "GulfTalent",
+      "category": "regional_aggregator",
+      "website": "https://www.gulftalent.com",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "secondary",
+      "status": "active",
+      "notes": "GCC-focused job board. English-primary. More relevant for expatriate candidates or multinational employers. Lower volume of Saudi-specific postings than Bayt."
+    },
+
+    {
+      "id": "lever",
+      "name": "Lever ATS",
+      "category": "ats_platform",
+      "website": "https://jobs.lever.co",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "low",
+      "saudi_relevance": "secondary",
+      "status": "active",
+      "notes": "ATS used by multinational companies and tech-forward regional employers. Job postings are served at predictable URL patterns under jobs.lever.co. Structured HTML. English-primary. Used by some regional HQ entities and tech companies operating in Saudi Arabia."
+    },
+
+    {
+      "id": "greenhouse",
+      "name": "Greenhouse ATS",
+      "category": "ats_platform",
+      "website": "https://boards.greenhouse.io",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "low",
+      "saudi_relevance": "secondary",
+      "status": "active",
+      "notes": "ATS used by multinationals and growth-stage companies. Job boards are publicly accessible at boards.greenhouse.io. Structured and consistent format. English-primary. Used by companies posting regional HQ roles and tech roles in Saudi Arabia."
+    },
+
+    {
+      "id": "ashby",
+      "name": "Ashby ATS",
+      "category": "ats_platform",
+      "website": "https://jobs.ashbyhq.com",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "low",
+      "saudi_relevance": "secondary",
+      "status": "active",
+      "notes": "Newer ATS gaining adoption among tech companies and startups. Job boards served at jobs.ashbyhq.com. Clean HTML structure. English-primary. Adoption in Saudi-based tech companies and regional operations is limited but growing."
+    },
+
+    {
+      "id": "workday",
+      "name": "Workday Careers",
+      "category": "ats_platform",
+      "website": "https://www.myworkdayjobs.com",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "high",
+      "saudi_relevance": "secondary",
+      "status": "active",
+      "notes": "Enterprise ATS used by large corporations and government-linked entities. Dynamic rendering makes automated extraction difficult. Used by several major Saudi employers including Aramco and SABIC for some hiring workflows."
+    },
+
+    {
+      "id": "taleo",
+      "name": "Oracle Taleo",
+      "category": "ats_platform",
+      "website": null,
+      "language_support": ["ar", "en"],
+      "authentication_required": true,
+      "scraping_complexity": "high",
+      "saudi_relevance": "secondary",
+      "status": "active",
+      "notes": "Legacy enterprise ATS still deployed by large Saudi employers and government-affiliated entities. Highly variable implementation across companies. No unified public URL pattern. Authentication typically required for full application access."
+    },
+
+    {
+      "id": "mckinsey-careers",
+      "name": "McKinsey & Company Careers",
+      "category": "consulting",
+      "website": "https://www.mckinsey.com/careers",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "secondary",
+      "status": "active",
+      "notes": "Significant presence in Riyadh. Saudi office is among the larger offices in the region. Roles posted centrally. Riyadh-specific postings can be filtered. English-primary. Saudi and Arabic-speaking candidates are a target profile."
+    },
+
+    {
+      "id": "bcg-careers",
+      "name": "Boston Consulting Group Careers",
+      "category": "consulting",
+      "website": "https://www.bcg.com/careers",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "secondary",
+      "status": "active",
+      "notes": "Active in Saudi Arabia with Riyadh office. Major advisor to government entities and Vision 2030 programs. Consulting and knowledge roles. English-primary."
+    },
+
+    {
+      "id": "strategy-and-careers",
+      "name": "Strategy& Careers (PwC)",
+      "category": "consulting",
+      "website": "https://www.strategyand.pwc.com/m1/en/careers.html",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "primary",
+      "status": "active",
+      "notes": "Middle East headquarters in Riyadh. Significant Saudi client base including government ministries and Vision 2030 entities. Arabic-speaking consultants are actively recruited. Strategy and management consulting focus."
+    },
+
+    {
+      "id": "google-careers-sa",
+      "name": "Google Careers — Saudi Arabia",
+      "category": "tech_company",
+      "website": "https://careers.google.com",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "secondary",
+      "status": "active",
+      "notes": "Google has a Riyadh office and posts roles filterable by location. Roles are predominantly English-language cloud, sales, and engineering functions. Volume is limited relative to global postings."
+    },
+
+    {
+      "id": "microsoft-careers-sa",
+      "name": "Microsoft Careers — Saudi Arabia",
+      "category": "tech_company",
+      "website": "https://careers.microsoft.com",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "secondary",
+      "status": "active",
+      "notes": "Microsoft has an established Riyadh office. Roles include cloud (Azure), sales, and partner management. Significant activity around government cloud contracts. English-primary."
+    },
+
+    {
+      "id": "amazon-jobs-sa",
+      "name": "Amazon Jobs — Saudi Arabia",
+      "category": "tech_company",
+      "website": "https://www.amazon.jobs",
+      "language_support": ["en"],
+      "authentication_required": false,
+      "scraping_complexity": "medium",
+      "saudi_relevance": "secondary",
+      "status": "active",
+      "notes": "Amazon and AWS have growing presence in Saudi Arabia. Roles span logistics, AWS commercial, and operations. Filterable by country. English-primary."
+    },
+
+    {
+      "id": "stc-ventures-portfolio",
+      "name": "STC Ventures Portfolio Companies",
+      "category": "startup_ecosystem",
+      "website": "https://stcventures.com",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "high",
+      "saudi_relevance": "primary",
+      "status": "unverified",
+      "notes": "STC Ventures invests in Saudi and regional tech startups. Portfolio companies post independently; there is no unified jobs aggregator. Useful as a reference list of active Saudi tech companies to track individually."
+    },
+
+    {
+      "id": "wa-ed-careers",
+      "name": "Wa'ed Ventures Portfolio",
+      "category": "startup_ecosystem",
+      "website": "https://waed.com",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "high",
+      "saudi_relevance": "primary",
+      "status": "unverified",
+      "notes": "Saudi Aramco's entrepreneurship center. Invests in and incubates Saudi startups. Portfolio is mostly early-stage. No centralized job listings. Useful as a reference for identifying Saudi-based early-stage companies."
+    },
+
+    {
+      "id": "flat6labs-riyadh",
+      "name": "Flat6Labs Riyadh",
+      "category": "startup_ecosystem",
+      "website": "https://www.flat6labs.com/riyadh",
+      "language_support": ["ar", "en"],
+      "authentication_required": false,
+      "scraping_complexity": "high",
+      "saudi_relevance": "primary",
+      "status": "unverified",
+      "notes": "Seed-stage accelerator operating in Riyadh. Cohort-based. Portfolio companies post jobs independently. Useful as a pipeline for identifying early-stage Saudi startups with hiring activity."
+    }
+
+  ]
+}
