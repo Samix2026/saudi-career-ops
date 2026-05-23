@@ -1,156 +1,150 @@
-# Saudi Career Ops
+# saudi-career-ops
 
-**Saudi-first AI career intelligence system for job matching, CV analysis, hiring insights, and application tracking.**
+**نظام ذكاء وظيفي مبني على السوق السعودي — لمن يريد أن يختار شركته لا أن تختاره.**
 
-> "Automate analysis, not decisions."
-
----
-
-## Overview
-
-Saudi Career Ops is a local-first toolset that applies AI to the Saudi labor market. It processes job postings, CVs, and market data to surface structured intelligence — not generic career advice, but context-aware analysis grounded in how hiring actually works in Saudi Arabia.
-
-The system handles both Arabic and English job content natively, recognizes Saudi-specific compliance frameworks, and is designed to be operated by individuals or small teams without requiring any external accounts or SaaS dependencies.
-
-This is **not** an official government platform. It has no affiliation with any Saudi ministry or regulator.
+الشركات تستخدم الذكاء الاصطناعي لفلترة المرشحين.
+هذا المشروع يُعطي المرشح نفس الأداة — بسياق سعودي حقيقي.
 
 ---
 
-## Why This Exists
+## لماذا هذا المشروع موجود
 
-The Saudi labor market has structural complexity that generic career tools ignore:
+كل أدوات البحث الوظيفي المبنية على الذكاء الاصطناعي تتجاهل شيئاً واحداً:
+**السوق السعودي ليس سوقاً عادياً.**
 
-- **Saudization (Nitaqat)** quotas shape which roles are open to nationals vs. expatriates, and at what level.
-- **Qiwa** is the regulatory backbone for labor contracts and workforce compliance.
-- **GOSI** enrollment status affects employability and benefits eligibility.
-- **Tamheer** and **Jadarat** are government-run pathways with distinct eligibility rules and expectations.
-- **PIF ecosystem** entities — including Neom, Diriyah, Saudi Aramco subsidiaries, and Vision 2030 megaprojects — post at scale and have hiring patterns that differ from the private sector.
+نطاقات تحدد من يستطيع التقدم. قيوة تربط العقد بالاحتساب. PIF entities لها منطق توظيف مختلف عن القطاع الخاص. المقرات الإقليمية تدفع 20-35% أعلى من الشركات المحلية لنفس الدور. البنوك الرقمية الأربع في مراحل مختلفة من النمو. وظيفة تمهير ليست وظيفة دائمة.
 
-Most career tools treat these as footnotes. This project treats them as first-class inputs.
+هذا المشروع يعامل كل هذا كـ **مدخلات أساسية** لا هوامش.
 
 ---
 
-## Core Features
+## ما يفعله النظام
 
-- **CV Analysis** — Structured evaluation of a CV against a target role, including gap identification, alignment score, and positioning notes. Works in Arabic and English.
-- **Job Matching** — Given a profile and a set of job descriptions, ranks and explains fit. Sensitive to Saudization classification, sector, and seniority.
-- **Hiring Insights** — Extracts signals from job postings: required vs. preferred qualifications, implicit criteria, organizational signals, and market positioning.
-- **Application Tracking** — Lightweight pipeline for managing active applications, stages, and follow-up actions. No external database required.
-- **Reality Check** — Prompts the system to identify where a candidate's expectations diverge from market conditions. Direct output, no softening.
+```
+مسح  →  نطاق  →  وظيفة  →  تحضير
+                              ↓
+                        story-bank
+                        tracker.tsv
+```
+
+| الأمر | ما تحصل عليه |
+|-------|------------|
+| `/saudi-career-ops مسح` | خطة بحث مُخصَّصة لكل بوابة: LinkedIn SA، بيت، جدارات، مواقع PIF مباشرةً |
+| `/saudi-career-ops نطاق` | تحليل أهليتك في الدور خلال دقيقتين — قبل أن تُضيع وقتك في تقديم لن يصل |
+| `/saudi-career-ops وظيفة` | تقييم 7 blocks: مطابقة السيرة، النطاق، الراتب بالريال، إعداد المقابلة، الحكم النهائي |
+| `/saudi-career-ops تحضير` | إعداد مقابلة عميق — بحث المنشأة، أسئلة متوقعة، قصص STAR من سيرتك، إشارات ثقافية |
+| `/saudi-career-ops واقع` | مقارنة توقعاتك براتب وفرص السوق الفعلي |
+| `/saudi-career-ops تواصل` | رسالة LinkedIn جاهزة — 6 أنواع حسب من تُراسل |
 
 ---
 
-## Architecture Philosophy
+## البدء السريع
 
-The system is built around prompts, structured data, and composable scripts — not a monolithic application.
+```bash
+git clone https://github.com/Samix2026/saudi-career-ops.git
+cd saudi-career-ops
+cp config/profile.example.yml config/profile.yml
+touch cv.md
+claude
+```
 
-- **Prompt-first**: Core logic lives in version-controlled prompt files. Behavior is auditable and adjustable without touching code.
-- **Local by default**: No data leaves the machine unless explicitly configured. Suitable for handling personal or sensitive professional information.
-- **LLM-agnostic**: Prompts are written to work with any capable model. The default assumes Claude via the Anthropic API, but the architecture does not require it.
-- **No hidden abstractions**: Analysis output is plain text or structured JSON. The operator decides what to do with it.
+ثم:
+```
+/saudi-career-ops واقع
+```
+
+أول نتيجة في أقل من 5 دقائق.
+
+> الدليل الكامل: [`docs/SETUP.ar.md`](docs/SETUP.ar.md)
 
 ---
 
-## Repository Structure
+## ما يميزه عن أدوات career الأخرى
+
+| الجانب | أدوات career عامة | saudi-career-ops |
+|--------|------------------|-----------------|
+| النطاقات والسعودة | غائبة تماماً | Block مستقل في كل تقييم |
+| تصنيف المنشآت | شركة = شركة | PIF / RHQ / حكومي / ناشئ — لكل نوع منطقه |
+| الراتب | أرقام دولارية عامة | SAR مع تفريق بين PIF وRHQ وخاص |
+| اللغة | إنجليزي فقط | عربي وإنجليزي — حسب لغة الوصف الوظيفي |
+| البوابات | Greenhouse / LinkedIn غربي | جدارات، بيت، مواقع أرامكو/NEOM/PIF مباشرةً |
+| تمهير وجدارات | لا يعرفهما | مُعرَّفان بدقة مع تأثيرهما على قرار التقديم |
+
+---
+
+## المتطلبات
+
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — الأداة الوحيدة المطلوبة
+- لا npm، لا Python، لا خوادم
+
+---
+
+## هيكل المشروع
 
 ```
 saudi-career-ops/
-├── prompts/                  # Core prompt library
-│   ├── cv-analysis.md        # CV evaluation against a target role
-│   ├── job-matching.md       # Profile-to-job fit ranking
-│   └── reality-check.md      # Expectation vs. market calibration
-├── examples/                 # Sample inputs for testing
-│   ├── sample-job-description.ar.md
-│   └── sample-job-description.en.md
-├── data/                     # Static reference data
-│   └── sources.json          # Tracked data sources and update status
-├── docs/                     # Conceptual documentation
-│   ├── architecture.md
-│   ├── saudi-market-context.md
-│   └── vision.md
-├── ROADMAP.md
-├── CONTRIBUTING.md
-└── README.md
+├── modes/
+│   ├── _shared.md     ← السياق المشترك: النطاقات 2026، PIF، RHQ، الرواتب
+│   ├── وظيفة.md       ← تقييم كامل 7 blocks
+│   ├── نطاق.md        ← تحليل النطاق والأهلية
+│   ├── مسح.md         ← خطة البحث في البوابات السعودية
+│   ├── تحضير.md       ← إعداد المقابلة العميق
+│   ├── واقع.md        ← معايرة التوقعات بالسوق
+│   └── تواصل.md       ← LinkedIn outreach مُخصَّص
+├── config/
+│   └── profile.example.yml
+├── data/
+│   └── tracker.tsv
+├── interview-prep/
+│   └── story-bank.md
+└── docs/
+    └── SETUP.ar.md
 ```
 
 ---
 
-## Local Usage
+## المساهمة
 
-No installation or API keys required. Python 3.10+ and no third-party packages.
+هذا المشروع مبني بالمجتمع وللمجتمع.
 
-**Run the matching CLI against sample data:**
+السوق السعودي واسع — لا يمكن لشخص واحد أن يغطي كل قطاعاته وتفاصيله. نحتاج خبراء في:
 
-```bash
-python3 -m cli.main match \
-    --candidate data/sample-candidate-profiles.json \
-    --job ingestion/output/sample-output.json
-```
+- **قطاعات متخصصة:** رعاية صحية، هندسة، تعليم، لوجستيات، ضيافة
+- **مناطق جغرافية:** جدة، الدمام، المنطقة الشرقية، NEOM
+- **أنواع منشآت:** شركات ناشئة سعودية، قطاع حكومي، شركات عائلية كبرى
+- **بيانات الرواتب:** أرقام حقيقية من السوق تُحدّث `_shared.md`
+- **اختبارات حقيقية:** وظائف جربت عليها النظام ورأيت أين قصر
 
-**Run against a single candidate profile:**
-
-```bash
-python3 -m cli.main match \
-    --candidate examples/sample-candidate-profile.json \
-    --job ingestion/output/sample-output.json
-```
-
-**Show component-level score breakdown:**
-
-```bash
-python3 -m cli.main match \
-    --candidate data/sample-candidate-profiles.json \
-    --job ingestion/output/sample-output.json \
-    --verbose
-```
-
-**Input formats accepted for both `--candidate` and `--job`:**
-
-| Shape | Example |
-|-------|---------|
-| `{"candidates": [...]}` | `data/sample-candidate-profiles.json` |
-| `{"records": [...]}` | `ingestion/output/sample-output.json` |
-| `[{...}, {...}]` | bare JSON array |
-| `{...}` | single object |
-
-**Run the test suite:**
-
-```bash
-python3 scripts/smoke-test-matching.py
-python3 scripts/smoke-test-candidate.py
-python3 scripts/smoke-test-cli.py
-python3 scripts/smoke-test-parser.py
-```
+> راجع [`CONTRIBUTING.md`](CONTRIBUTING.md) للبدء
 
 ---
 
-## Roadmap Summary
+## الحالة الراهنة
 
-**Near-term**
-- Finalize and test core prompt library (CV analysis, job matching, reality check)
-- Build structured output schema for all analysis prompts
-- Add Qiwa and Nitaqat classification logic to job matching
+المشروع في مرحلة **Beta نشطة** — الـ modes الأساسية مكتملة ومختبرة، البنية التقنية (PDF، scanner أوتوماتيكي) قادمة في Phase 3.
 
-**Medium-term**
-- Application tracking CLI with persistent state
-- Arabic-language prompt variants tested against native job postings
-- Integration layer for Jadarat and Tamheer eligibility checks
+```
+Phase 1 ✅  البنية الأساسية والتوثيق
+Phase 2 ✅  المكتبة الكاملة — 6 modes
+Phase 3 🔄  PDF عربي، scanner أوتوماتيكي، dashboard
+```
 
-**Longer-term**
-- Sector-specific hiring pattern analysis (PIF entities, healthcare, banking)
-- Comparative benchmarking across Saudi regions and industries
-- Self-hostable dashboard for individual or team use
+> خارطة الطريق الكاملة: [`ROADMAP.md`](ROADMAP.md)
 
 ---
 
-## Disclaimer
+## تنبيه
 
-Saudi Career Ops is an independent project. It is not affiliated with, endorsed by, or connected to the Saudi Ministry of Human Resources, HRDF, Qiwa, GOSI, Tamheer, Jadarat, or any other government body or official platform.
+هذا المشروع مستقل تماماً — لا علاقة له بوزارة الموارد البشرية، قيوة، جدارات، HRDF، أو أي جهة حكومية سعودية.
 
-All analysis is AI-generated and should be treated as one input among many. It does not constitute legal, HR, or professional advice. Regulatory requirements — including Saudization quotas and labor law — change; always verify against official sources.
+كل التحليلات مبنية على بيانات متاحة للعموم وتُعامَل كمدخل للقرار الإنساني لا بديلاً عنه. اللوائح التنظيمية تتغير — تحقق دائماً من المصادر الرسمية.
 
 ---
 
-## License
+## الرخصة
 
-To be determined.
+MIT — استخدم، عدّل، وزّع بحرية.
+
+---
+
+*بُني هذا المشروع على أكتاف [`santifer/career-ops`](https://github.com/santifer/career-ops) — شكراً للعمل المفتوح الذي جعل هذا ممكناً.*
