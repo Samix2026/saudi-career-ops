@@ -1,44 +1,91 @@
 # saudi-career-ops
 
-**نظام ذكاء وظيفي مبني على السوق السعودي — لمن يريد أن يختار شركته لا أن تختاره.**
+**An AI-powered career intelligence system built for the Saudi job market — because generic tools don't know what Nitaqat is.**
 
-الشركات تستخدم الذكاء الاصطناعي لفلترة المرشحين.
-هذا المشروع يُعطي المرشح نفس الأداة — بسياق سعودي حقيقي.
+Western career automation tools miss everything that makes the Saudi market distinct.
+This project treats that context as first-class input.
 
----
-
-## لماذا هذا المشروع موجود
-
-كل أدوات البحث الوظيفي المبنية على الذكاء الاصطناعي تتجاهل شيئاً واحداً:
-**السوق السعودي ليس سوقاً عادياً.**
-
-نطاقات تحدد من يستطيع التقدم. قيوة تربط العقد بالاحتساب. PIF entities لها منطق توظيف مختلف عن القطاع الخاص. المقرات الإقليمية تدفع 20-35% أعلى من الشركات المحلية لنفس الدور. البنوك الرقمية الأربع في مراحل مختلفة من النمو. وظيفة تمهير ليست وظيفة دائمة.
-
-هذا المشروع يعامل كل هذا كـ **مدخلات أساسية** لا هوامش.
+> Arabic README: [README.ar.md](README.ar.md) | Setup guide: [docs/SETUP.ar.md](docs/SETUP.ar.md)
 
 ---
 
-## ما يفعله النظام
+## The problem
+
+Every AI career tool on the market was built for Western markets. They don't know:
+
+- **Nitaqat** — the Saudization quota system that determines whether a role is even accessible to you
+- **Qiwa** — the platform that ties employment contracts to Nitaqat calculations (changed April 2026)
+- **PIF entities** — 40+ sovereign wealth fund companies with different hiring logic than private sector
+- **Regional HQ program** — 700+ multinationals with Riyadh headquarters, exempt from Nitaqat for 10 years, paying 20–35% above local market
+- **Tamheer vs permanent employment** — a government training program that looks like a job posting but isn't
+- **Jadarat, Bayt, and Saudi-specific portals** — where the actual jobs are
+
+This project fixes that.
+
+---
+
+## What it does
+
+Six modes covering the full pipeline — from job discovery to offer:
 
 ```
-مسح  →  نطاق  →  وظيفة  →  تحضير
-                              ↓
-                        story-bank
-                        tracker.tsv
+مسح (scan) → نطاق (nitaqat) → وظيفة (evaluate) → تحضير (prepare)
+                                                          ↓
+                                                    story-bank.md
+                                                    tracker.tsv
 ```
 
-| الأمر | ما تحصل عليه |
-|-------|------------|
-| `/saudi-career-ops مسح` | خطة بحث مُخصَّصة لكل بوابة: LinkedIn SA، بيت، جدارات، مواقع PIF مباشرةً |
-| `/saudi-career-ops نطاق` | تحليل أهليتك في الدور خلال دقيقتين — قبل أن تُضيع وقتك في تقديم لن يصل |
-| `/saudi-career-ops وظيفة` | تقييم 7 blocks: مطابقة السيرة، النطاق، الراتب بالريال، إعداد المقابلة، الحكم النهائي |
-| `/saudi-career-ops تحضير` | إعداد مقابلة عميق — بحث المنشأة، أسئلة متوقعة، قصص STAR من سيرتك، إشارات ثقافية |
-| `/saudi-career-ops واقع` | مقارنة توقعاتك براتب وفرص السوق الفعلي |
-| `/saudi-career-ops تواصل` | رسالة LinkedIn جاهزة — 6 أنواع حسب من تُراسل |
+| Command | What you get |
+|---------|-------------|
+| `/saudi-career-ops مسح` | Tailored search plan for every Saudi portal: LinkedIn SA, Bayt, Jadarat, direct PIF/NEOM/Aramco career pages |
+| `/saudi-career-ops نطاق [company] [role]` | 2-minute Nitaqat eligibility check before wasting time on a role you can't get |
+| `/saudi-career-ops وظيفة` | Full 7-block evaluation: CV match, Nitaqat status, SAR salary benchmark, interview prep, final grade |
+| `/saudi-career-ops تحضير [company] [role]` | Deep interview prep — company research, expected questions with STAR answers from your CV, cultural signals by org type |
+| `/saudi-career-ops واقع` | Reality check — are your expectations aligned with what the Saudi market actually pays? |
+| `/saudi-career-ops تواصل [type] [context]` | LinkedIn outreach message — 6 types: recruiter cold, hiring manager, referral, follow-up, thank-you, reconnect |
 
 ---
 
-## البدء السريع
+## What makes this different
+
+| Feature | Generic career tools | saudi-career-ops |
+|---------|---------------------|-----------------|
+| Nitaqat check | Not present | Standalone mode + block in every evaluation |
+| Org type taxonomy | "company" | Government / PIF entity / Private / RHQ / SEZ — each with different hiring logic |
+| Salary benchmarks | USD, general | SAR, with PIF vs RHQ vs private sector breakdown |
+| Language | English only | Arabic + English, output matches input language |
+| Job portals | Greenhouse, LinkedIn US | Jadarat, Bayt, direct PIF entity pages, RHQ companies |
+| Tamheer / government programs | Unknown | Defined with clear impact on application decision |
+| Digital banks | Unknown | All 4 SAMA-licensed banks with launch status and growth stage |
+
+---
+
+## Architecture
+
+Every mode reads `cv.md` + `config/profile.yml` + `modes/_shared.md` automatically.
+
+```
+Inputs                    Pipeline                        Outputs
+──────                    ────────                        ───────
+cv.md          ──┐
+profile.yml    ──┤──▶  مسح ──▶ نطاق ──▶ وظيفة ──▶ تحضير ──▶  reports/
+_shared.md     ──┘         (support: واقع · تواصل)           tracker.tsv
+                                                              story-bank.md
+```
+
+`_shared.md` carries the Saudi market context loaded by every mode:
+- Nitaqat color bands and 2026 rule changes
+- Full org type taxonomy (PIF entities, RHQ list, SEZ rules)
+- Saudi portal directory with direct career page URLs
+- SAR salary benchmarks by seniority and org type
+- Licensed digital banks with current growth stage
+- Glossary: Nitaqat, Qiwa, GOSI, Tamheer, Jadarat, HRDF, RHQ, SEZ
+
+---
+
+## Quickstart
+
+**Requirements**: [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — the only dependency.
 
 ```bash
 git clone https://github.com/Samix2026/saudi-career-ops.git
@@ -48,103 +95,95 @@ touch cv.md
 claude
 ```
 
-ثم:
+Then:
 ```
 /saudi-career-ops واقع
 ```
 
-أول نتيجة في أقل من 5 دقائق.
-
-> الدليل الكامل: [`docs/SETUP.ar.md`](docs/SETUP.ar.md)
+First output in under 5 minutes.
 
 ---
 
-## ما يميزه عن أدوات career الأخرى
-
-| الجانب | أدوات career عامة | saudi-career-ops |
-|--------|------------------|-----------------|
-| النطاقات والسعودة | غائبة تماماً | Block مستقل في كل تقييم |
-| تصنيف المنشآت | شركة = شركة | PIF / RHQ / حكومي / ناشئ — لكل نوع منطقه |
-| الراتب | أرقام دولارية عامة | SAR مع تفريق بين PIF وRHQ وخاص |
-| اللغة | إنجليزي فقط | عربي وإنجليزي — حسب لغة الوصف الوظيفي |
-| البوابات | Greenhouse / LinkedIn غربي | جدارات، بيت، مواقع أرامكو/NEOM/PIF مباشرةً |
-| تمهير وجدارات | لا يعرفهما | مُعرَّفان بدقة مع تأثيرهما على قرار التقديم |
-
----
-
-## المتطلبات
-
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — الأداة الوحيدة المطلوبة
-- لا npm، لا Python، لا خوادم
-
----
-
-## هيكل المشروع
+## File structure
 
 ```
 saudi-career-ops/
-├── modes/
-│   ├── _shared.md     ← السياق المشترك: النطاقات 2026، PIF، RHQ، الرواتب
-│   ├── وظيفة.md       ← تقييم كامل 7 blocks
-│   ├── نطاق.md        ← تحليل النطاق والأهلية
-│   ├── مسح.md         ← خطة البحث في البوابات السعودية
-│   ├── تحضير.md       ← إعداد المقابلة العميق
-│   ├── واقع.md        ← معايرة التوقعات بالسوق
-│   └── تواصل.md       ← LinkedIn outreach مُخصَّص
+├── cv.md                        ← your CV (you create this, gitignored)
 ├── config/
-│   └── profile.example.yml
+│   ├── profile.example.yml      ← copy and fill in
+│   └── profile.yml              ← your settings (gitignored)
+├── modes/
+│   ├── _shared.md               ← Saudi market context, loaded by every mode
+│   ├── وظيفة.md                 ← 7-block job evaluation
+│   ├── نطاق.md                  ← Nitaqat eligibility check
+│   ├── مسح.md                   ← Saudi portal search plan
+│   ├── تحضير.md                 ← deep interview prep
+│   ├── واقع.md                  ← market reality check
+│   └── تواصل.md                 ← LinkedIn outreach
 ├── data/
-│   └── tracker.tsv
+│   └── tracker.tsv              ← application log
 ├── interview-prep/
-│   └── story-bank.md
+│   └── story-bank.md            ← STAR+R stories, auto-populated by تحضير mode
 └── docs/
-    └── SETUP.ar.md
+    ├── SETUP.ar.md              ← Arabic setup guide
+    └── ROADMAP.md               ← three-phase roadmap
 ```
 
 ---
 
-## المساهمة
+## Contributing
 
-هذا المشروع مبني بالمجتمع وللمجتمع.
+The Saudi market has more depth than any one person can cover.
 
-السوق السعودي واسع — لا يمكن لشخص واحد أن يغطي كل قطاعاته وتفاصيله. نحتاج خبراء في:
+**What we need most:**
 
-- **قطاعات متخصصة:** رعاية صحية، هندسة، تعليم، لوجستيات، ضيافة
-- **مناطق جغرافية:** جدة، الدمام، المنطقة الشرقية، NEOM
-- **أنواع منشآت:** شركات ناشئة سعودية، قطاع حكومي، شركات عائلية كبرى
-- **بيانات الرواتب:** أرقام حقيقية من السوق تُحدّث `_shared.md`
-- **اختبارات حقيقية:** وظائف جربت عليها النظام ورأيت أين قصر
+- **Sector specialists** — healthcare, engineering, education, logistics, hospitality each have distinct Nitaqat rules and salary structures
+- **Regional data** — Jeddah, Dammam, Eastern Province, NEOM have different market dynamics than Riyadh
+- **Salary data** — real SAR numbers from people in the market, attributed to role/sector/city
+- **Real test cases** — job postings you ran through the system, with what the output got right or wrong
+- **Arabic content review** — native speakers who can improve the Arabic prompts and outputs
 
-> راجع [`CONTRIBUTING.md`](CONTRIBUTING.md) للبدء
+See [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
 
 ---
 
-## الحالة الراهنة
-
-المشروع في مرحلة **Beta نشطة** — الـ modes الأساسية مكتملة ومختبرة، البنية التقنية (PDF، scanner أوتوماتيكي) قادمة في Phase 3.
+## Roadmap
 
 ```
-Phase 1 ✅  البنية الأساسية والتوثيق
-Phase 2 ✅  المكتبة الكاملة — 6 modes
-Phase 3 🔄  PDF عربي، scanner أوتوماتيكي، dashboard
+Phase 1 ✅  Core infrastructure and documentation
+Phase 2 ✅  Full mode library — 6 modes covering discovery to offer
+Phase 3 🔄  Arabic PDF CV generation, Playwright job scanner, Go dashboard
 ```
 
-> خارطة الطريق الكاملة: [`ROADMAP.md`](ROADMAP.md)
+Full details: [ROADMAP.md](ROADMAP.md)
 
 ---
 
-## تنبيه
+## Status
 
-هذا المشروع مستقل تماماً — لا علاقة له بوزارة الموارد البشرية، قيوة، جدارات، HRDF، أو أي جهة حكومية سعودية.
-
-كل التحليلات مبنية على بيانات متاحة للعموم وتُعامَل كمدخل للقرار الإنساني لا بديلاً عنه. اللوائح التنظيمية تتغير — تحقق دائماً من المصادر الرسمية.
-
----
-
-## الرخصة
-
-MIT — استخدم، عدّل، وزّع بحرية.
+**Beta** — core modes are complete and tested against real Saudi job postings.
+The technical automation layer (PDF generation, browser-based scanning) is Phase 3.
 
 ---
 
-*بُني هذا المشروع على أكتاف [`santifer/career-ops`](https://github.com/santifer/career-ops) — شكراً للعمل المفتوح الذي جعل هذا ممكناً.*
+## Disclaimer
+
+This project is independent — no affiliation with the Ministry of Human Resources, Qiwa, Jadarat, HRDF, or any Saudi government entity.
+
+All analysis is based on publicly available information and is input to human decision-making, not a replacement for it. Regulatory data (Nitaqat rates, Saudization rules) changes — always verify with official sources.
+
+---
+
+## License
+
+MIT
+
+---
+
+## Acknowledgements
+
+Built on the shoulders of [`santifer/career-ops`](https://github.com/santifer/career-ops) — the original AI job search system that proved this category works. This project applies the same architecture to a market that needed its own implementation.
+
+---
+
+*Saudi market context current as of May 2026. Nitaqat data sourced from HRSD and Qiwa official publications.*
