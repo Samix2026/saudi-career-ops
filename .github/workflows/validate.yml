@@ -42,7 +42,7 @@ jobs:
           python3 - <<'PYEOF'
           import sys
           from pathlib import Path
-          REQUIRED = ["## الغرض", "## ما لا يفعله"]
+          REQUIRED = ["\u0627\u0644\u063a\u0631\u0636", "\u0645\u0627 \u0644\u0627 \u064a\u0641\u0639\u0644\u0647"]
           SKIP = {"_shared.md"}
           errors = []
           for path in sorted(Path("modes").glob("*.md")):
@@ -51,10 +51,10 @@ jobs:
               content = path.read_text(encoding="utf-8")
               for section in REQUIRED:
                   if section not in content:
-                      errors.append(f"{path}: missing '{section}'")
+                      errors.append(f"{path.name}: missing '{section}'")
           if errors:
               for e in errors:
                   print(e, file=sys.stderr)
               sys.exit(1)
-          print("All modes valid.")
+          print(f"All modes valid.")
           PYEOF
