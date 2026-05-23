@@ -4,15 +4,22 @@
 # تحذير: لا تضع هنا رقم الهوية الوطنية أو الإقامة أو أي بيانات حساسة.
 
 # ───────────────────────────────────────────
+# الهوية المهنية
+# ───────────────────────────────────────────
+name: ""                         # اسمك الكامل
+current_title: ""                # مسماك الوظيفي الحالي
+target_title: ""                 # المسمى الوظيفي المستهدف
+
+# ───────────────────────────────────────────
 # الجنسية والأهلية
 # ───────────────────────────────────────────
-nationality: ""                  # saudi_national | expatriate
+nationality: ""                  # سعودي | مقيم
 iqama_status: ""                 # (للمقيمين) valid | transferable | tied | not_applicable
 
 # ───────────────────────────────────────────
 # المستوى الوظيفي الحالي
 # ───────────────────────────────────────────
-current_seniority: ""            # entry | junior | mid | senior | lead | manager | director
+seniority: ""                    # entry | junior | mid | senior | lead | manager | director
 years_experience: 0
 current_sector: ""               # القطاع الحالي (banking | tech | energy | healthcare | ...)
 current_city: ""                 # Riyadh | Jeddah | Dammam | Remote | ...
