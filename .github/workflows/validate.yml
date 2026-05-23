@@ -1,0 +1,100 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    name: Validate codebase
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # -----------------------------------------------------------------------
+      # Integrity checks — no script files required
+      # -----------------------------------------------------------------------
+
+      - name: Check all JSON files are valid
+        run: |
+          python3 - <<'PYEOF'
+          import json, sys
+          from pathlib import Path
+
+          skip = {".git", "__pycache__", "node_modules"}
+          errors = []
+
+          for path in Path(".").rglob("*.json"):
+              if any(part in skip for part in path.parts):
+                  continue
+              try:
+                  json.loads(path.read_text(encoding="utf-8"))
+              except json.JSONDecodeError as exc:
+                  errors.append(f"{path}: {exc}")
+
+          if errors:
+              print("Invalid JSON files:", file=sys.stderr)
+              for e in errors:
+                  print(f"  {e}", file=sys.stderr)
+              sys.exit(1)
+
+          print(f"All JSON files valid.")
+          PYEOF
+
+      - name: Check taxonomy files for duplicate IDs
+        run: |
+          python3 - <<'PYEOF'
+          import json, sys
+          from pathlib import Path
+
+          taxonomy_dir = Path("data/taxonomies")
+          if not taxonomy_dir.exists():
+              print("No data/taxonomies directory — skipping duplicate ID check.")
+              sys.exit(0)
+
+          errors = []
+
+          for path in taxonomy_dir.glob("*.json"):
+              data = json.loads(path.read_text(encoding="utf-8"))
+              arrays = [v for v in (data if isinstance(data, list) else data.values())
+                        if isinstance(v, list)]
+              for arr in arrays:
+                  ids = [item["id"] for item in arr if isinstance(item, dict) and "id" in item]
+                  seen = set()
+                  for id_ in ids:
+                      if id_ in seen:
+                          errors.append(f"{path}: duplicate id '{id_}'")
+                      seen.add(id_)
+
+          if errors:
+              print("Duplicate taxonomy IDs found:", file=sys.stderr)
+              for e in errors:
+                  print(f"  {e}", file=sys.stderr)
+              sys.exit(1)
+
+          print("No duplicate taxonomy IDs found.")
+          PYEOF
+
+      # -----------------------------------------------------------------------
+      # Smoke tests
+      # -----------------------------------------------------------------------
+
+      - name: Validate datasets
+        run: python3 scripts/validate-data.py
+
+      - name: Smoke test — parser
+        run: python3 scripts/smoke-test-parser.py
+
+      - name: Smoke test — matching engine
+        run: python3 scripts/smoke-test-matching.py
+
+      - name: Smoke test — candidate pipeline
+        run: python3 scripts/smoke-test-candidate.py
+
+      - name: Smoke test — CLI
+        run: python3 scripts/smoke-test-cli.py
