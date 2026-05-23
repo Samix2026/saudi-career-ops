@@ -75,6 +75,55 @@ saudi-career-ops/
 
 ---
 
+## Local Usage
+
+No installation or API keys required. Python 3.10+ and no third-party packages.
+
+**Run the matching CLI against sample data:**
+
+```bash
+python3 -m cli.main match \
+    --candidate data/sample-candidate-profiles.json \
+    --job ingestion/output/sample-output.json
+```
+
+**Run against a single candidate profile:**
+
+```bash
+python3 -m cli.main match \
+    --candidate examples/sample-candidate-profile.json \
+    --job ingestion/output/sample-output.json
+```
+
+**Show component-level score breakdown:**
+
+```bash
+python3 -m cli.main match \
+    --candidate data/sample-candidate-profiles.json \
+    --job ingestion/output/sample-output.json \
+    --verbose
+```
+
+**Input formats accepted for both `--candidate` and `--job`:**
+
+| Shape | Example |
+|-------|---------|
+| `{"candidates": [...]}` | `data/sample-candidate-profiles.json` |
+| `{"records": [...]}` | `ingestion/output/sample-output.json` |
+| `[{...}, {...}]` | bare JSON array |
+| `{...}` | single object |
+
+**Run the test suite:**
+
+```bash
+python3 scripts/smoke-test-matching.py
+python3 scripts/smoke-test-candidate.py
+python3 scripts/smoke-test-cli.py
+python3 scripts/smoke-test-parser.py
+```
+
+---
+
 ## Roadmap Summary
 
 **Near-term**
