@@ -1,0 +1,47 @@
+# config/profile.yml
+# تفضيلات المستخدم والسياق الشخصي
+# هذا الملف يُقرأ تلقائياً في جميع الـ modes. عدّله بمعلوماتك الفعلية.
+# تحذير: لا تضع هنا رقم الهوية الوطنية أو الإقامة أو أي بيانات حساسة.
+
+# ───────────────────────────────────────────
+# الجنسية والأهلية
+# ───────────────────────────────────────────
+nationality: ""                  # saudi_national | expatriate
+iqama_status: ""                 # (للمقيمين) valid | transferable | tied | not_applicable
+
+# ───────────────────────────────────────────
+# المستوى الوظيفي الحالي
+# ───────────────────────────────────────────
+current_seniority: ""            # entry | junior | mid | senior | lead | manager | director
+years_experience: 0
+current_sector: ""               # القطاع الحالي (banking | tech | energy | healthcare | ...)
+current_city: ""                 # Riyadh | Jeddah | Dammam | Remote | ...
+
+# ───────────────────────────────────────────
+# تفضيلات البحث
+# ───────────────────────────────────────────
+target_roles: []                 # قائمة المسميات المستهدفة
+target_sectors: []               # القطاعات المفضّلة
+target_cities: []                # المدن المقبولة
+willing_to_relocate: false
+remote_preference: ""            # onsite | hybrid | remote | any
+
+# ───────────────────────────────────────────
+# تفضيلات الراتب
+# ───────────────────────────────────────────
+salary_floor_sar: 0              # الحد الأدنى المقبول (ريال شهرياً)
+salary_target_sar: 0             # الهدف المعقول
+include_allowances: true         # هل تحسب البدلات في المقارنة؟
+
+# ───────────────────────────────────────────
+# تفضيلات نوع المنشأة
+# ───────────────────────────────────────────
+preferred_org_types: []          # government | semi_gov | pif_entity | rhq | private | startup
+avoid_org_types: []
+
+# ───────────────────────────────────────────
+# سياق إضافي
+# ───────────────────────────────────────────
+currently_employed: true
+open_to_tamheer: false           # للسعوديين فقط
+notes: ""                        # أي سياق آخر يجب أن يعرفه الـ agent

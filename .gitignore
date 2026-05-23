@@ -1,0 +1,14 @@
+# Personal data — never commit
+cv.md
+reports/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
