@@ -26,17 +26,18 @@ This project fixes that.
 
 ## What it does
 
-Six modes covering the full pipeline — from job discovery to offer:
+Seven modes covering the full pipeline — from CV import to offer:
 
 ```
-مسح (scan) → نطاق (nitaqat) → وظيفة (evaluate) → تحضير (prepare)
-                                                          ↓
-                                                    story-bank.md
-                                                    tracker.tsv
+استخراج (import) → مسح (scan) → نطاق (nitaqat) → وظيفة (evaluate) → تحضير (prepare)
+                                                                             ↓
+                                                                       story-bank.md
+                                                                       tracker.tsv
 ```
 
 | Command | What you get |
 |---------|-------------|
+| `/saudi-career-ops استخراج` | Convert any CV format (PDF paste, Word, freeform text) into a structured `cv.md` — start here |
 | `/saudi-career-ops مسح` | Tailored search plan for every Saudi portal: LinkedIn SA, Bayt, Jadarat, direct PIF/NEOM/Aramco career pages |
 | `/saudi-career-ops نطاق [company] [role]` | 2-minute Nitaqat eligibility check before wasting time on a role you can't get |
 | `/saudi-career-ops وظيفة` | Full 7-block evaluation: CV match, Nitaqat status, SAR salary benchmark, interview prep, final grade |
@@ -91,11 +92,16 @@ _shared.md     ──┘         (support: واقع · تواصل)           tra
 git clone https://github.com/Samix2026/saudi-career-ops.git
 cd saudi-career-ops
 cp config/profile.example.yml config/profile.yml
-touch cv.md
 claude
 ```
 
-Then:
+Then paste your CV in any format:
+```
+/saudi-career-ops استخراج
+[paste your CV here]
+```
+
+Save the output as `cv.md`, then run the first full check:
 ```
 /saudi-career-ops واقع
 ```
@@ -114,6 +120,7 @@ saudi-career-ops/
 │   └── profile.yml              ← your settings (gitignored)
 ├── modes/
 │   ├── _shared.md               ← Saudi market context, loaded by every mode
+│   ├── استخراج.md               ← CV import: any format → cv.md (start here)
 │   ├── وظيفة.md                 ← 7-block job evaluation
 │   ├── نطاق.md                  ← Nitaqat eligibility check
 │   ├── مسح.md                   ← Saudi portal search plan
