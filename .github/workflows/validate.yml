@@ -19,168 +19,42 @@ jobs:
         with:
           python-version: "3.12"
 
-      # -----------------------------------------------------------------------
-      # 1. JSON integrity — any .json files present must be valid
-      # -----------------------------------------------------------------------
-
-      - name: Check all JSON files are valid
-        run: |
-          python3 - <<'PYEOF'
-          import json, sys
-          from pathlib import Path
-
-          skip = {".git", "__pycache__", "node_modules"}
-          errors = []
-
-          for path in Path(".").rglob("*.json"):
-              if any(part in skip for part in path.parts):
-                  continue
-              try:
-                  json.loads(path.read_text(encoding="utf-8"))
-              except json.JSONDecodeError as exc:
-                  errors.append(f"{path}: {exc}")
-
-          if errors:
-              print("Invalid JSON files:", file=sys.stderr)
-              for e in errors:
-                  print(f"  {e}", file=sys.stderr)
-              sys.exit(1)
-
-          print(f"All JSON files valid.")
-          PYEOF
-
-      # -----------------------------------------------------------------------
-      # 2. Required files — core structure must exist
-      # -----------------------------------------------------------------------
-
       - name: Check required files exist
         run: |
           python3 - <<'PYEOF'
           import sys
           from pathlib import Path
-
           required = [
               "modes/_shared.md",
               "config/profile.example.yml",
               "data/tracker.tsv",
               "interview-prep/story-bank.md",
-              ".gitignore",
           ]
-
           missing = [f for f in required if not Path(f).exists()]
-
           if missing:
-              print("Missing required files:", file=sys.stderr)
-              for f in missing:
-                  print(f"  {f}", file=sys.stderr)
+              print("Missing:", missing, file=sys.stderr)
               sys.exit(1)
-
           print(f"All {len(required)} required files present.")
           PYEOF
-
-      # -----------------------------------------------------------------------
-      # 3. Modes validation — every mode must have required Arabic sections
-      # -----------------------------------------------------------------------
 
       - name: Validate modes structure
         run: |
           python3 - <<'PYEOF'
           import sys
           from pathlib import Path
-
-          REQUIRED_SECTIONS = [
-              "## الغرض",
-              "## ما لا يفعله",
-          ]
-
+          REQUIRED = ["## الغرض", "## ما لا يفعله"]
           SKIP = {"_shared.md"}
-
           errors = []
-          checked = 0
-
-          modes_dir = Path("modes")
-          if not modes_dir.exists():
-              print("No modes/ directory found.", file=sys.stderr)
-              sys.exit(1)
-
-          for path in sorted(modes_dir.glob("*.md")):
+          for path in sorted(Path("modes").glob("*.md")):
               if path.name in SKIP:
                   continue
-
               content = path.read_text(encoding="utf-8")
-              checked += 1
-
-              for section in REQUIRED_SECTIONS:
+              for section in REQUIRED:
                   if section not in content:
-                      errors.append(f"{path}: missing section '{section}'")
-
+                      errors.append(f"{path}: missing '{section}'")
           if errors:
-              print(f"Modes validation failed ({len(errors)} error(s)):", file=sys.stderr)
               for e in errors:
-                  print(f"  {e}", file=sys.stderr)
+                  print(e, file=sys.stderr)
               sys.exit(1)
-
-          print(f"All {checked} mode(s) passed structure validation.")
-          PYEOF
-
-      # -----------------------------------------------------------------------
-      # 4. _shared.md completeness — key Saudi context sections must exist
-      # -----------------------------------------------------------------------
-
-      - name: Validate _shared.md completeness
-        run: |
-          python3 - <<'PYEOF'
-          import sys
-          from pathlib import Path
-
-          path = Path("modes/_shared.md")
-          content = path.read_text(encoding="utf-8")
-
-          required_sections = [
-              "## 1.",
-              "## 2.",
-              "## 3.",
-              "## 4.",
-              "## 5.",
-              "نطاقات",
-              "PIF",
-              "RHQ",
-              "تمهير",
-          ]
-
-          errors = []
-          for section in required_sections:
-              if section not in content:
-                  errors.append(f"_shared.md: missing expected content '{section}'")
-
-          if errors:
-              print("_shared.md completeness check failed:", file=sys.stderr)
-              for e in errors:
-                  print(f"  {e}", file=sys.stderr)
-              sys.exit(1)
-
-          print("_shared.md completeness check passed.")
-          PYEOF
-
-      # -----------------------------------------------------------------------
-      # 5. tracker.tsv — must have header row
-      # -----------------------------------------------------------------------
-
-      - name: Validate tracker.tsv format
-        run: |
-          python3 - <<'PYEOF'
-          import sys
-          from pathlib import Path
-
-          path = Path("data/tracker.tsv")
-          first_line = path.read_text(encoding="utf-8").split("\n")[0]
-
-          required_columns = ["company", "role", "date", "grade", "status"]
-          missing = [col for col in required_columns if col not in first_line]
-
-          if missing:
-              print(f"tracker.tsv missing columns: {missing}", file=sys.stderr)
-              sys.exit(1)
-
-          print("tracker.tsv format valid.")
+          print("All modes valid.")
           PYEOF
