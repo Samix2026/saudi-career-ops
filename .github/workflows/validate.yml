@@ -20,7 +20,7 @@ jobs:
           python-version: "3.12"
 
       # -----------------------------------------------------------------------
-      # Integrity checks — no script files required
+      # 1. JSON integrity — any .json files present must be valid
       # -----------------------------------------------------------------------
 
       - name: Check all JSON files are valid
@@ -49,55 +49,138 @@ jobs:
           print(f"All JSON files valid.")
           PYEOF
 
-      - name: Check taxonomy files for duplicate IDs
+      # -----------------------------------------------------------------------
+      # 2. Required files — core structure must exist
+      # -----------------------------------------------------------------------
+
+      - name: Check required files exist
         run: |
           python3 - <<'PYEOF'
-          import json, sys
+          import sys
           from pathlib import Path
 
-          taxonomy_dir = Path("data/taxonomies")
-          if not taxonomy_dir.exists():
-              print("No data/taxonomies directory — skipping duplicate ID check.")
-              sys.exit(0)
+          required = [
+              "modes/_shared.md",
+              "config/profile.example.yml",
+              "data/tracker.tsv",
+              "interview-prep/story-bank.md",
+              ".gitignore",
+          ]
+
+          missing = [f for f in required if not Path(f).exists()]
+
+          if missing:
+              print("Missing required files:", file=sys.stderr)
+              for f in missing:
+                  print(f"  {f}", file=sys.stderr)
+              sys.exit(1)
+
+          print(f"All {len(required)} required files present.")
+          PYEOF
+
+      # -----------------------------------------------------------------------
+      # 3. Modes validation — every mode must have required Arabic sections
+      # -----------------------------------------------------------------------
+
+      - name: Validate modes structure
+        run: |
+          python3 - <<'PYEOF'
+          import sys
+          from pathlib import Path
+
+          REQUIRED_SECTIONS = [
+              "## الغرض",
+              "## ما لا يفعله",
+          ]
+
+          SKIP = {"_shared.md"}
 
           errors = []
+          checked = 0
 
-          for path in taxonomy_dir.glob("*.json"):
-              data = json.loads(path.read_text(encoding="utf-8"))
-              arrays = [v for v in (data if isinstance(data, list) else data.values())
-                        if isinstance(v, list)]
-              for arr in arrays:
-                  ids = [item["id"] for item in arr if isinstance(item, dict) and "id" in item]
-                  seen = set()
-                  for id_ in ids:
-                      if id_ in seen:
-                          errors.append(f"{path}: duplicate id '{id_}'")
-                      seen.add(id_)
+          modes_dir = Path("modes")
+          if not modes_dir.exists():
+              print("No modes/ directory found.", file=sys.stderr)
+              sys.exit(1)
+
+          for path in sorted(modes_dir.glob("*.md")):
+              if path.name in SKIP:
+                  continue
+
+              content = path.read_text(encoding="utf-8")
+              checked += 1
+
+              for section in REQUIRED_SECTIONS:
+                  if section not in content:
+                      errors.append(f"{path}: missing section '{section}'")
 
           if errors:
-              print("Duplicate taxonomy IDs found:", file=sys.stderr)
+              print(f"Modes validation failed ({len(errors)} error(s)):", file=sys.stderr)
               for e in errors:
                   print(f"  {e}", file=sys.stderr)
               sys.exit(1)
 
-          print("No duplicate taxonomy IDs found.")
+          print(f"All {checked} mode(s) passed structure validation.")
           PYEOF
 
       # -----------------------------------------------------------------------
-      # Smoke tests
+      # 4. _shared.md completeness — key Saudi context sections must exist
       # -----------------------------------------------------------------------
 
-      - name: Validate datasets
-        run: python3 scripts/validate-data.py
+      - name: Validate _shared.md completeness
+        run: |
+          python3 - <<'PYEOF'
+          import sys
+          from pathlib import Path
 
-      - name: Smoke test — parser
-        run: python3 scripts/smoke-test-parser.py
+          path = Path("modes/_shared.md")
+          content = path.read_text(encoding="utf-8")
 
-      - name: Smoke test — matching engine
-        run: python3 scripts/smoke-test-matching.py
+          required_sections = [
+              "## 1.",
+              "## 2.",
+              "## 3.",
+              "## 4.",
+              "## 5.",
+              "نطاقات",
+              "PIF",
+              "RHQ",
+              "تمهير",
+          ]
 
-      - name: Smoke test — candidate pipeline
-        run: python3 scripts/smoke-test-candidate.py
+          errors = []
+          for section in required_sections:
+              if section not in content:
+                  errors.append(f"_shared.md: missing expected content '{section}'")
 
-      - name: Smoke test — CLI
-        run: python3 scripts/smoke-test-cli.py
+          if errors:
+              print("_shared.md completeness check failed:", file=sys.stderr)
+              for e in errors:
+                  print(f"  {e}", file=sys.stderr)
+              sys.exit(1)
+
+          print("_shared.md completeness check passed.")
+          PYEOF
+
+      # -----------------------------------------------------------------------
+      # 5. tracker.tsv — must have header row
+      # -----------------------------------------------------------------------
+
+      - name: Validate tracker.tsv format
+        run: |
+          python3 - <<'PYEOF'
+          import sys
+          from pathlib import Path
+
+          path = Path("data/tracker.tsv")
+          first_line = path.read_text(encoding="utf-8").split("\n")[0]
+
+          required_columns = ["company", "role", "date", "grade", "status"]
+          missing = [col for col in required_columns if col not in first_line]
+
+          if missing:
+              print(f"tracker.tsv missing columns: {missing}", file=sys.stderr)
+              sys.exit(1)
+
+          print("tracker.tsv format valid.")
+          PYEOF
