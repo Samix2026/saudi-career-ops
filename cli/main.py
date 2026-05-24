@@ -51,6 +51,7 @@ from candidate.parser import parse_candidate
 from candidate.profile_builder import build_profile
 from matching.models import CandidateProfile, MatchResult
 from matching.scorer import Scorer
+from scripts.nitaqat_report import generate_nitaqat_report
 
 
 # ---------------------------------------------------------------------------
@@ -325,6 +326,23 @@ def cmd_match(args: argparse.Namespace) -> None:
     print()
 
 
+def run_nitaqat_integration(args: argparse.Namespace) -> None:
+    cv_text = Path(args.cv_path).read_text(encoding="utf-8")
+    entity_data = {
+        "name": args.company_name,
+        "entity_type": args.entity_type,
+        "sector": args.sector,
+        "size": args.employee_count,
+        "nationality": args.nationality,
+        "salary": args.salary,
+        "qiwa_documented": args.qiwa_documented,
+        "role_sector": args.role_sector,
+        "experience_level": args.experience_level,
+    }
+    report_path = generate_nitaqat_report(cv_text, entity_data)
+    print(f"تم إنشاء تقرير النطاق وحفظه في: {report_path}")
+
+
 # ---------------------------------------------------------------------------
 # Argument parser
 # ---------------------------------------------------------------------------
@@ -378,6 +396,36 @@ examples:
         help="Print component-level score breakdown.",
     )
     match_p.set_defaults(func=cmd_match)
+
+    nitaqat_p = sub.add_parser(
+        "nitaqat",
+        help="Generate a Nitaqat report from a CV-like text file and entity metadata.",
+    )
+    nitaqat_p.add_argument(
+        "--cv-path",
+        required=True,
+        metavar="FILE",
+        help="Path to the CV text file containing company/job data.",
+    )
+    nitaqat_p.add_argument("--company-name", help="اسم المنشأة")
+    nitaqat_p.add_argument("--entity-type", help="نوع المنشأة")
+    nitaqat_p.add_argument("--sector", help="القطاع")
+    nitaqat_p.add_argument("--employee-count", type=int, help="عدد الموظفين التقريبي")
+    nitaqat_p.add_argument(
+        "--qiwa-documented",
+        type=lambda s: s.lower() in ("yes", "نعم", "true", "1"),
+        help="هل العقد موثق في قيوة؟",
+    )
+    nitaqat_p.add_argument("--salary", type=int, help="الراتب بالريال السعودي")
+    nitaqat_p.add_argument("--role-sector", help="قطاع الدور أو المهنة المحددة")
+    nitaqat_p.add_argument("--experience-level", help="مستوى الخبرة مثل senior أو manager")
+    nitaqat_p.add_argument(
+        "--nationality",
+        choices=["saudi", "resident", "expatriate"],
+        default="saudi",
+        help="Candidate nationality.",
+    )
+    nitaqat_p.set_defaults(func=run_nitaqat_integration)
 
     return parser
 

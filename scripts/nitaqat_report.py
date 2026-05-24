@@ -14,6 +14,15 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional, Union
+from xml.sax.saxutils import escape
+
+from reportlab.lib.enums import TA_RIGHT
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.units import mm
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 
 __all__ = [
     "Entity",
@@ -22,6 +31,7 @@ __all__ = [
     "save_report",
     "run_nitaqat_analysis",
     "generate_nitaqat_report",
+    "export_to_pdf",
 ]
 
 
@@ -276,6 +286,126 @@ def slugify(value: str) -> str:
     return safe.lower() or "report"
 
 
+def _get_pdf_font_name() -> str:
+    default_font = "Helvetica"
+    font_candidates = {
+        "DejaVuSans": [
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+            "/usr/local/share/fonts/dejavu/DejaVuSans.ttf",
+        ],
+        "ArialUnicode": [
+            "/Library/Fonts/Arial Unicode.ttf",
+            "/usr/share/fonts/truetype/msttcorefonts/Arial_Unicode_MS.ttf",
+        ],
+        "NotoNaskhArabic": [
+            "/usr/share/fonts/truetype/noto/NotoNaskhArabic-Regular.ttf",
+        ],
+    }
+    for font_name, paths in font_candidates.items():
+        for path in paths:
+            path_obj = Path(path)
+            if path_obj.exists():
+                try:
+                    pdfmetrics.registerFont(TTFont(font_name, str(path_obj)))
+                    return font_name
+                except Exception:
+                    continue
+    return default_font
+
+
+def _markdown_to_flowables(markdown_content: str, font_name: str) -> list[Any]:
+    styles = getSampleStyleSheet()
+    heading1 = ParagraphStyle(
+        "Heading1",
+        parent=styles["Heading1"],
+        fontName=font_name,
+        fontSize=18,
+        leading=22,
+        alignment=TA_RIGHT,
+        spaceAfter=10,
+    )
+    heading2 = ParagraphStyle(
+        "Heading2",
+        parent=styles["Heading2"],
+        fontName=font_name,
+        fontSize=14,
+        leading=18,
+        alignment=TA_RIGHT,
+        spaceAfter=8,
+    )
+    heading3 = ParagraphStyle(
+        "Heading3",
+        parent=styles["Heading3"],
+        fontName=font_name,
+        fontSize=12,
+        leading=16,
+        alignment=TA_RIGHT,
+        spaceAfter=6,
+    )
+    body = ParagraphStyle(
+        "Body",
+        parent=styles["Normal"],
+        fontName=font_name,
+        fontSize=11,
+        leading=14,
+        alignment=TA_RIGHT,
+        spaceAfter=6,
+    )
+    list_item = ParagraphStyle(
+        "ListItem",
+        parent=body,
+        leftIndent=10 * mm,
+        rightIndent=5 * mm,
+    )
+
+    flowables: list[Any] = []
+    for line in markdown_content.splitlines():
+        if not line.strip():
+            flowables.append(Spacer(1, 6))
+            continue
+
+        if line.startswith("### "):
+            text = escape(line[4:].strip())
+            flowables.append(Paragraph(text, heading3))
+            continue
+        if line.startswith("## "):
+            text = escape(line[3:].strip())
+            flowables.append(Paragraph(text, heading2))
+            continue
+        if line.startswith("# "):
+            text = escape(line[2:].strip())
+            flowables.append(Paragraph(text, heading1))
+            continue
+        if line.startswith("- ") or line.startswith("* "):
+            text = escape(line[2:].strip())
+            flowables.append(Paragraph(f"• {text}", list_item))
+            continue
+
+        flowables.append(Paragraph(escape(line.strip()), body))
+
+    return flowables
+
+
+def export_to_pdf(markdown_content: str, output_path: Union[str, Path]) -> Path:
+    output_path = Path(output_path)
+    if output_path.suffix.lower() != ".pdf":
+        output_path = output_path.with_suffix(".pdf")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    doc = SimpleDocTemplate(
+        str(output_path),
+        pagesize=A4,
+        leftMargin=18 * mm,
+        rightMargin=18 * mm,
+        topMargin=20 * mm,
+        bottomMargin=20 * mm,
+    )
+    font_name = _get_pdf_font_name()
+    flowables = _markdown_to_flowables(markdown_content, font_name)
+    doc.build(flowables)
+    return output_path
+
+
 def save_report(content: str, entity: Entity) -> Path:
     reports_dir = Path(__file__).resolve().parent.parent / "reports"
     reports_dir.mkdir(parents=True, exist_ok=True)
@@ -411,6 +541,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--salary", type=int, help="الراتب بالريال السعودي إذا كان معروفاً")
     parser.add_argument("--role-sector", help="قطاع الدور أو المهنة المحددة")
     parser.add_argument("--experience-level", help="مستوى الخبرة أو seniority مثل senior أو manager")
+    parser.add_argument(
+        "--pdf-output",
+        type=Path,
+        help="Optional output path for a PDF version of the report.",
+    )
     return parser.parse_args()
 
 
@@ -428,6 +563,11 @@ def main() -> int:
 
     print(report_content)
     print(f"\nتم حفظ التقرير في: {report_path}")
+
+    if args.pdf_output:
+        pdf_path = export_to_pdf(report_content, args.pdf_output)
+        print(f"تم حفظ التقرير بصيغة PDF في: {pdf_path}")
+
     return 0
 
 
