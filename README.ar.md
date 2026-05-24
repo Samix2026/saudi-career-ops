@@ -174,11 +174,12 @@ Phase 3 🔄  n8n workflow + Supabase + live job fetching
 
 ## المنتج التجاري
 
-[jobs.doitsmart.cloud](https://jobs.doitsmart.cloud) هو التطبيق التجاري المبني على هذا النظام.
+[jobs.doitsmart.cloud](https://jobs.doitsmart.cloud) هو التطبيق التجاري المخطط البناء على هذا النظام.
 المستخدم يرفع سيرته ويستلم خلال 48 ساعة: تقرير ATS، وظائف مطابقة،
-سيرة معدلة، وCover Letter — مدار بـ prompts/jobs-pipeline.md.
+سيرة معدلة، وCover Letter.
 
-التكامل التقني عبر n8n موثق في docs/doitsmart-integration.md.
+`prompts/jobs-pipeline.md` هو system prompt جاهز للتكامل — مواصفات وتوثيق، لا تنفيذ فعلي.
+معمارية n8n والـ webhook موثقة في `docs/doitsmart-integration.md` وتنتظر التنفيذ (Phase 3).
 
 ---
 
