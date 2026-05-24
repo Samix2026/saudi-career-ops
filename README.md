@@ -36,18 +36,23 @@
 | **Phase 3: n8n workflow** | ⚡ متوسط | ⏳ لم يُبنَ | 0% |
 | **Phase 4: MCP server** | 🔮 مستقبلي | 🔮 مستقبلي | 0% |
 
-## 📈 مؤشرات الأداء | Operational KPIs
-* ⏱️ **وقت المعالجة:** 45 ثانية.
-* 🎯 **دقة محرك نطاقات:** 92%.
-* 📁 **التقارير المؤرشفة:** 15+ تقرير.
-
 ## 🏗️ البنية والعمليات | Architecture & Workflow
 **AR:** يعتمد المشروع على محرك استدلالي (Inference Engine) يقوم بالتحليل، التقييم، والأرشفة تلقائياً.
 **EN:** The project relies on an inference engine that handles analysis, evaluation, and archiving automatically.
 
 ## 💡 كيفية الاستخدام | How to Use
-1. **أمر التقييم:** `python3 -m cli.main وظيفة --file <path>`
-2. **النتيجة:** يقوم النظام بتحليل الوظيفة وإصدار تقرير PDF تلقائي في `/reports`.
+```bash
+git clone https://github.com/Samix2026/saudi-career-ops.git
+cd saudi-career-ops
+cp config/profile.example.yml config/profile.yml
+touch cv.md
+claude
+```
+
+ثم في جلسة Claude Code:
+```
+/saudi-career-ops واقع
+```
 
 ## 🗺️ خارطة الطريق | Roadmap
 ### Phase 1 + 2 (مكتمل) ✅
@@ -65,5 +70,5 @@
 يرجى الاطلاع على ملف `CONTRIBUTING.md` للمساهمة.
 
 ## ⚖️ إخلاء مسؤولية | Disclaimer
-**AR:** هذه الأداة لأغراض معلوماتية فقط. يرجى استشارة المختصين القانونيين.
-**EN:** This tool is for educational purposes only. Always consult legal professionals.
+**AR:** التحليل المُنتَج بالذكاء الاصطناعي للاسترشاد فقط. لا يُغني عن البحث المستقل في المصادر الرسمية.
+**EN:** AI-generated analysis is for guidance only. Always verify against official sources independently.
