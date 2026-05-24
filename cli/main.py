@@ -51,7 +51,6 @@ from candidate.parser import parse_candidate
 from candidate.profile_builder import build_profile
 from matching.models import CandidateProfile, MatchResult
 from matching.scorer import Scorer
-from scripts.nitaqat_report import run_nitaqat_analysis
 
 
 # ---------------------------------------------------------------------------
@@ -195,23 +194,6 @@ def _load_jobs(path: Path) -> list[JobPosting]:
     return jobs
 
 
-def _load_job_context(path: Path) -> dict[str, Any]:
-    data = _load_json(path)
-    if not isinstance(data, dict):
-        _die(f"Job context file must be a JSON object with 'cv' and 'entity': {path}")
-
-    if "cv" not in data or "entity" not in data:
-        _die(f"Job context file is missing required keys 'cv' and/or 'entity': {path}")
-
-    if not isinstance(data["entity"], dict):
-        _die(f"Field 'entity' must be an object in job context file: {path}")
-
-    return {
-        "cv": data["cv"],
-        "entity": data["entity"],
-    }
-
-
 def _enum_or(enum_cls, value, default):
     """Coerce a string to an enum value, returning default on failure."""
     if not value:
@@ -343,36 +325,6 @@ def cmd_match(args: argparse.Namespace) -> None:
     print()
 
 
-def run_nitaqat_integration(args: argparse.Namespace) -> None:
-    cv_text = Path(args.cv_path).read_text(encoding="utf-8")
-    entity_data = {
-        "name": args.company_name,
-        "entity_type": args.entity_type,
-        "sector": args.sector,
-        "size": args.employee_count,
-        "nationality": args.nationality,
-        "salary": args.salary,
-        "qiwa_documented": args.qiwa_documented,
-        "role_sector": args.role_sector,
-        "experience_level": args.experience_level,
-    }
-    report_path = run_nitaqat_analysis(cv_text, entity_data)
-    print(f"تم إنشاء تقرير النطاق وحفظه في: {report_path}")
-
-
-def handle_job_evaluation(job_data: dict[str, Any]) -> None:
-    report_path = run_nitaqat_analysis(job_data["cv"], job_data["entity"])
-    print(f"✅ تم إنشاء التقرير بنجاح: {report_path}")
-
-
-def execute_job_mode(job_context: dict[str, Any]) -> str:
-    """
-    الربط الجديد: تنفيذ المحرك تلقائياً كجزء من وظيفة
-    """
-    report_path = run_nitaqat_analysis(job_context["cv"], job_context["entity"])
-    return f"تم تقييم الوظيفة بنجاح. يمكنك مراجعة التقرير المفصل هنا: {report_path}"
-
-
 # ---------------------------------------------------------------------------
 # Argument parser
 # ---------------------------------------------------------------------------
@@ -427,61 +379,7 @@ examples:
     )
     match_p.set_defaults(func=cmd_match)
 
-    nitaqat_p = sub.add_parser(
-        "nitaqat",
-        help="Generate a Nitaqat report from a CV-like text file and entity metadata.",
-    )
-    nitaqat_p.add_argument(
-        "--cv-path",
-        required=True,
-        metavar="FILE",
-        help="Path to the CV text file containing company/job data.",
-    )
-    nitaqat_p.add_argument("--company-name", help="اسم المنشأة")
-    nitaqat_p.add_argument("--entity-type", help="نوع المنشأة")
-    nitaqat_p.add_argument("--sector", help="القطاع")
-    nitaqat_p.add_argument("--employee-count", type=int, help="عدد الموظفين التقريبي")
-    nitaqat_p.add_argument(
-        "--qiwa-documented",
-        type=lambda s: s.lower() in ("yes", "نعم", "true", "1"),
-        help="هل العقد موثق في قيوة؟",
-    )
-    nitaqat_p.add_argument("--salary", type=int, help="الراتب بالريال السعودي")
-    nitaqat_p.add_argument("--role-sector", help="قطاع الدور أو المهنة المحددة")
-    nitaqat_p.add_argument("--experience-level", help="مستوى الخبرة مثل senior أو manager")
-    nitaqat_p.add_argument(
-        "--nationality",
-        choices=["saudi", "resident", "expatriate"],
-        default="saudi",
-        help="Candidate nationality.",
-    )
-    nitaqat_p.set_defaults(func=run_nitaqat_integration)
-
-    job_p = sub.add_parser(
-        "وظيفة",
-        help="Evaluate a job using automatic Nitaqat integration.",
-    )
-    job_p.add_argument(
-        "--file",
-        required=True,
-        metavar="FILE",
-        help="JSON file containing job context with 'cv' and 'entity'.",
-    )
-    job_p.add_argument("--company-name", help="اسم المنشأة")
-    job_p.add_argument("--entity-type", help="نوع المنشأة")
-    job_p.set_defaults(func=cmd_job)
-
     return parser
-
-
-def cmd_job(args: argparse.Namespace) -> None:
-    job_context = _load_job_context(Path(args.file))
-    if args.company_name:
-        job_context["entity"]["name"] = args.company_name
-    if args.entity_type:
-        job_context["entity"]["entity_type"] = args.entity_type
-    result = execute_job_mode(job_context)
-    print(result)
 
 
 def main() -> None:
