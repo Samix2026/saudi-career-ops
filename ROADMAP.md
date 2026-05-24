@@ -6,7 +6,7 @@
 
 ## الحالة الراهنة
 
-المشروع في مرحلة **البناء النشط**. المكتبة الأساسية جاهزة ومختبرة. الأولوية الآن هي إكمال الـ modes الجوهرية قبل الانتقال لأي تكامل خارجي.
+المشروع في مرحلة **البناء النشط**. المكتبة الأساسية جاهزة ومختبرة. المرحلة الحالية: إكمال الـ modes الجوهرية + تجهيز التكامل مع jobs.doitsmart.cloud.
 
 ---
 
@@ -15,13 +15,33 @@
 ### المكتبة الأساسية
 | الملف | الوصف | الحالة |
 |-------|-------|--------|
-| `modes/_shared.md` | السياق المشترك — taxonomy المنشآت، النطاقات 2026، PIF، RHQ، البنوك الرقمية، مرجع الرواتب، قاموس المصطلحات | ✅ مكتمل ومختبر |
-| `modes/وظيفة.md` | تقييم وظيفة واحدة — 7 blocks كاملة مع Block A محدّث (مصدر الإعلان، المنشأة غير المُسمّاة) | ✅ مكتمل ومختبر |
-| `modes/نطاق.md` | تحليل النطاق المستقل — 4 blocks، بيانات 2026 محدّثة، منظور المرشح لا صاحب العمل | ✅ مكتمل |
+| `modes/_shared.md` | السياق المشترك — taxonomy المنشآت، النطاقات 2026، PIF، RHQ، نافس، هيئات الاعتماد المهني، البنوك الرقمية، مرجع الرواتب، قاموس المصطلحات | ✅ مكتمل ومحدّث |
+| `modes/وظيفة.md` | تقييم وظيفة واحدة — 7 blocks كاملة | ✅ مكتمل ومختبر |
+| `modes/نطاق.md` | تحليل النطاق المستقل — 4 blocks، بيانات 2026 | ✅ مكتمل |
+| `modes/سيرة.md` | تحسين السيرة الذاتية — ATS scoring، نسخة عربية وإنجليزية | ✅ مكتمل |
+| `modes/خطاب.md` | Cover Letter — ثنائي اللغة، مُخصَّص لكل وظيفة | ✅ مكتمل |
+| `modes/دفعة.md` | تقييم 5-15 وظيفة دفعة واحدة — جدول مرتب بالدرجات | ✅ مكتمل |
+| `modes/تفاوض.md` | استراتيجية التفاوض على الراتب — سياق سعودي كامل | ✅ مكتمل |
 | `config/profile.yml` | الملف الشخصي الموسّع بالحقول السعودية | ✅ |
 | `data/tracker.tsv` | سجل الطلبات مع headers | ✅ |
-| `interview-prep/story-bank.md` | بنك قصص STAR+R — يُملأ تلقائياً من Block F | ✅ |
-| `.gitignore` | `cv.md` و`reports/` محميان، لا يُرفعان | ✅ |
+| `interview-prep/story-bank.md` | بنك قصص STAR+R | ✅ |
+| `.gitignore` | `cv.md` و`reports/` محميان | ✅ |
+
+### التوثيق والبنية
+| الملف | الوصف | الحالة |
+|-------|-------|--------|
+| `docs/architecture.md` | توثيق البنية الفعلية — طبقتان، Python scorer، تكامل مخطط | ✅ مكتمل |
+| `docs/doitsmart-integration.md` | معمارية التكامل مع jobs.doitsmart.cloud | ✅ مكتمل |
+| `prompts/jobs-pipeline.md` | System prompt جاهز لـ n8n pipeline | ✅ مكتمل |
+| `prompts/ترشيح.md` | System prompt الأساسي + HTML template + n8n config | ✅ مكتمل |
+| `examples/` | 3 أمثلة وظيفية اصطناعية (PIF، RHQ، حكومي) + README | ✅ مكتمل |
+| `data/sources.json` | redirect pointer للملف الرسمي | ✅ |
+
+### Python Scoring Engine
+- `ingestion/` — تحليل وهيكلة بيانات الوظائف (مكتمل، مختبر)
+- `matching/` — محرك المطابقة 0-100 مع تبرير كامل (مكتمل، مختبر)
+- `candidate/` — نموذج بيانات المرشح (مكتمل)
+- `scripts/nitaqat_report.py` — تقرير نطاقات عبر Claude API (مكتمل)
 
 ### الاختبار
 - تم تشغيل simulation كامل على وظيفة Head of Operations في بنك رقمي بالرياض
@@ -30,41 +50,46 @@
 
 ---
 
-## المرحلة القادمة — Phase 2 🔄
+## المرحلة الثانية — Phase 2: jobs.doitsmart.cloud 🔄
 
-### modes مطلوبة
+**الهدف الرئيسي:** تحويل الريبو إلى محرك خلفي آلي لمنصة jobs.doitsmart.cloud عبر n8n.
 
+### الجاهز للتكامل
+| الملف | الجاهزية |
+|-------|---------|
+| `prompts/jobs-pipeline.md` | جاهز — system prompt مع schema JSON كامل |
+| `docs/doitsmart-integration.md` | جاهز — معمارية n8n، webhook schema، email template |
+| `modes/سيرة.md` / `modes/خطاب.md` | الـ logic مُدمَج في jobs-pipeline.md |
+
+### المتبقي قبل الإطلاق
+- [ ] n8n workflow بناء فعلي وربط الـ nodes
+- [ ] اختبار على 10 سير ذاتية حقيقية (مجهّلة) قبل الإطلاق
+- [ ] JSON schema validation node في n8n
+- [ ] Gotenberg instance جاهز + اختبار PDF العربي (RTL)
+- [ ] SMTP configuration للإيميلات التسليمية
+- [ ] مراجعة يدوية للـ 10 طلبات الأولى قبل تفعيل الأتمتة الكاملة
+
+### modes إضافية مخطط لها
 | الـ mode | الأمر | الأولوية | الوصف |
 |---------|-------|---------|-------|
-| `مسح.md` | `/saudi-career-ops مسح` | عالية | scanner البوابات السعودية — LinkedIn SA، بيت، جدارات، مواقع PIF مباشرةً |
-| `سيرة.md` | `/saudi-career-ops سيرة` | عالية | توليد وتحديث السيرة الذاتية بالعربية والإنجليزي — Cairo font، RTL، حقول سعودية |
-| `تحضير.md` | `/saudi-career-ops تحضير` | متوسطة | إعداد مقابلة عميق لمنشأة محددة — بحث، أسئلة، قصص مُخصَّصة |
-| `واقع.md` | `/saudi-career-ops واقع` | متوسطة | reality check سعودي — هل توقعاتك تتوافق مع السوق فعلاً؟ |
-| `تواصل.md` | `/saudi-career-ops تواصل` | منخفضة | رسالة LinkedIn outreach مُخصَّصة حسب نوع المحاور (recruiter / hiring manager / peer) |
-| `دفعة.md` | `/saudi-career-ops دفعة` | منخفضة | batch evaluation — تقييم 10+ وظائف بالتوازي |
-
-### تحسينات الملفات الحالية
-- [ ] `modes/وظيفة.md` — إضافة block لكشف "Ghost Jobs" (وظائف وهمية أو منتهية الصلاحية)
-- [ ] `modes/نطاق.md` — إضافة رابط مباشر لحاسبة نطاقات SAMA
-- [ ] `modes/_shared.md` — تحديث أرقام الرواتب من Bayt Salary Survey عند صدور تقرير 2025
+| `مسح.md` | `/saudi-career-ops مسح` | متوسطة | scanner البوابات السعودية — LinkedIn SA، بيت، جدارات |
+| `تحضير.md` | `/saudi-career-ops تحضير` | متوسطة | إعداد مقابلة عميق لمنشأة محددة |
 
 ---
 
 ## المرحلة الثالثة — Phase 3 🔮
 
-### البنية التقنية (من career-ops)
-- [ ] نقل `batch/` و`dashboard/` و`templates/` من `santifer/career-ops`
+### البنية التقنية
 - [ ] `templates/cv-template-ar.html` — قالب CV بالعربية مع Cairo font + RTL
-- [ ] `templates/portals.sa.yml` — بوابات سعودية: LinkedIn SA، بيت، جدارات، PIF entities مباشرةً
 - [ ] `scripts/generate-pdf.mjs` — PDF generation مُكيَّف للعربية
+- [ ] توصيل Python scorer بـ Claude Code modes (قرار معماري مُعلَّق في docs/architecture.md)
 
 ### التوثيق
-- [ ] `README.ar.md` — نسخة عربية كاملة للـ README
 - [ ] `docs/SETUP.ar.md` — دليل إعداد بالعربية
-- [ ] `LICENSE` — اختيار MIT
+- [ ] تحديث أرقام الرواتب من Bayt Salary Survey عند صدور تقرير 2025
 
 ### التكاملات (اختيارية)
-- [ ] MCP server — تشغيل النظام مباشرةً من Claude Desktop بدون CLI
+- [ ] MCP server — تشغيل النظام مباشرةً من Claude Desktop
 - [ ] GitHub Actions — smoke tests تلقائية على كل commit
 
 ---
@@ -83,4 +108,6 @@
 - تقديم تلقائي للوظائف
 - توليد سيرة ذاتية مزوّرة أو مضلّلة
 - ادّعاء التواصل مع جهات حكومية (قيوة، جدارات، HRDF)
-- نظام SaaS أو خدمة مستضافة تجمع بيانات المستخدمين
+- نظام SaaS عام أو خدمة مستضافة تجمع بيانات المستخدمين للعامة
+
+**ملاحظة:** API endpoints لـ pipeline jobs.doitsmart.cloud مقبولة — هذا ليس SaaS عاماً بل خدمة مُحددة للعملاء الذين يدفعون ويوافقون على شروط الخدمة. الفرق الجوهري: البيانات تُعالَج وتُحذف، لا تُخزَّن.
