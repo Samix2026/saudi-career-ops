@@ -51,7 +51,7 @@ from candidate.parser import parse_candidate
 from candidate.profile_builder import build_profile
 from matching.models import CandidateProfile, MatchResult
 from matching.scorer import Scorer
-from scripts.nitaqat_report import generate_nitaqat_report
+from scripts.nitaqat_report import run_nitaqat_analysis
 
 
 # ---------------------------------------------------------------------------
@@ -193,6 +193,23 @@ def _load_jobs(path: Path) -> list[JobPosting]:
         _die(f"No valid job postings found in {path}")
 
     return jobs
+
+
+def _load_job_context(path: Path) -> dict[str, Any]:
+    data = _load_json(path)
+    if not isinstance(data, dict):
+        _die(f"Job context file must be a JSON object with 'cv' and 'entity': {path}")
+
+    if "cv" not in data or "entity" not in data:
+        _die(f"Job context file is missing required keys 'cv' and/or 'entity': {path}")
+
+    if not isinstance(data["entity"], dict):
+        _die(f"Field 'entity' must be an object in job context file: {path}")
+
+    return {
+        "cv": data["cv"],
+        "entity": data["entity"],
+    }
 
 
 def _enum_or(enum_cls, value, default):
@@ -339,8 +356,21 @@ def run_nitaqat_integration(args: argparse.Namespace) -> None:
         "role_sector": args.role_sector,
         "experience_level": args.experience_level,
     }
-    report_path = generate_nitaqat_report(cv_text, entity_data)
+    report_path = run_nitaqat_analysis(cv_text, entity_data)
     print(f"تم إنشاء تقرير النطاق وحفظه في: {report_path}")
+
+
+def handle_job_evaluation(job_data: dict[str, Any]) -> None:
+    report_path = run_nitaqat_analysis(job_data["cv"], job_data["entity"])
+    print(f"✅ تم إنشاء التقرير بنجاح: {report_path}")
+
+
+def execute_job_mode(job_context: dict[str, Any]) -> str:
+    """
+    الربط الجديد: تنفيذ المحرك تلقائياً كجزء من وظيفة
+    """
+    report_path = run_nitaqat_analysis(job_context["cv"], job_context["entity"])
+    return f"تم تقييم الوظيفة بنجاح. يمكنك مراجعة التقرير المفصل هنا: {report_path}"
 
 
 # ---------------------------------------------------------------------------
@@ -427,7 +457,31 @@ examples:
     )
     nitaqat_p.set_defaults(func=run_nitaqat_integration)
 
+    job_p = sub.add_parser(
+        "وظيفة",
+        help="Evaluate a job using automatic Nitaqat integration.",
+    )
+    job_p.add_argument(
+        "--file",
+        required=True,
+        metavar="FILE",
+        help="JSON file containing job context with 'cv' and 'entity'.",
+    )
+    job_p.add_argument("--company-name", help="اسم المنشأة")
+    job_p.add_argument("--entity-type", help="نوع المنشأة")
+    job_p.set_defaults(func=cmd_job)
+
     return parser
+
+
+def cmd_job(args: argparse.Namespace) -> None:
+    job_context = _load_job_context(Path(args.file))
+    if args.company_name:
+        job_context["entity"]["name"] = args.company_name
+    if args.entity_type:
+        job_context["entity"]["entity_type"] = args.entity_type
+    result = execute_job_mode(job_context)
+    print(result)
 
 
 def main() -> None:
