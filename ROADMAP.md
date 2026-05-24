@@ -53,6 +53,7 @@
 ## المرحلة الثالثة — Phase 3 🔮
 
 ### البنية التقنية (من career-ops)
+- [x] ربط محرك التقييم تلقائياً عبر `main.py` — integration مفعل
 - [ ] نقل `batch/` و`dashboard/` و`templates/` من `santifer/career-ops`
 - [ ] `templates/cv-template-ar.html` — قالب CV بالعربية مع Cairo font + RTL
 - [ ] `templates/portals.sa.yml` — بوابات سعودية: LinkedIn SA، بيت، جدارات، PIF entities مباشرةً
