@@ -18,6 +18,29 @@
 
 ---
 
+## حالة المشروع — مايو 2026
+
+| المكوّن | الحالة | الوصف |
+|---------|--------|-------|
+| modes/وظيفة.md | مكتمل ومُختبر | تقييم وظيفة واحدة — 7 blocks |
+| modes/نطاق.md | مكتمل | تحليل النطاقات والسعودة |
+| modes/واقع.md | مكتمل | معايرة التوقعات بالسوق الفعلي |
+| modes/تواصل.md | مكتمل | رسائل LinkedIn — 6 أنواع |
+| modes/تحضير.md | مكتمل | إعداد مقابلة عميق |
+| modes/مسح.md | مكتمل | خطة بحث مُخصَّصة لكل بوابة |
+| modes/استخراج.md | مكتمل | تحويل أي CV إلى cv.md منظم |
+| modes/سيرة.md | مكتمل | سيرة ذاتية محسّنة لـ ATS + نسختان عربي/إنجليزي |
+| modes/خطاب.md | مكتمل | Cover Letter مخصص — 250-350 كلمة |
+| modes/دفعة.md | مكتمل | تقييم 5-15 وظيفة بالتوازي |
+| modes/تفاوض.md | مكتمل | استراتيجية التفاوض على الراتب |
+| prompts/jobs-pipeline.md | مكتمل | pipeline جاهز للتكامل مع n8n |
+| scripts/nitaqat_report.py | مكتمل | تقرير نطاقات للمنشآت |
+| docs/doitsmart-integration.md | مكتمل | مواصفات التكامل مع jobs.doitsmart.cloud |
+| data/saudi-job-sources.json | مكتمل | 15+ مصدر وظيفي سعودي موثق |
+| n8n workflow | قادم | الربط الفعلي مع jobs.doitsmart.cloud |
+
+---
+
 ## ما يفعله النظام
 
 ```
@@ -35,6 +58,10 @@
 | `/saudi-career-ops تحضير` | إعداد مقابلة عميق — بحث المنشأة، أسئلة متوقعة، قصص STAR من سيرتك، إشارات ثقافية |
 | `/saudi-career-ops واقع` | مقارنة توقعاتك براتب وفرص السوق الفعلي |
 | `/saudi-career-ops تواصل` | رسالة LinkedIn جاهزة — 6 أنواع حسب من تُراسل |
+| `/saudi-career-ops سيرة` | سيرة ذاتية محسّنة لـ ATS بالعربية والإنجليزية، مُخصَّصة للوظيفة المستهدفة |
+| `/saudi-career-ops خطاب` | Cover Letter جاهز للإرسال — مُخصَّص للشركة والمسمى |
+| `/saudi-career-ops دفعة` | تقييم سريع لـ 5-15 وظيفة مع ترتيب A-F وتوصية فورية |
+| `/saudi-career-ops تفاوض` | تحليل العرض الوارد واستراتيجية التفاوض بالسياق السعودي |
 
 ---
 
@@ -84,21 +111,33 @@ claude
 ```
 saudi-career-ops/
 ├── modes/
-│   ├── _shared.md     ← السياق المشترك: النطاقات 2026، PIF، RHQ، الرواتب
+│   ├── _shared.md     ← السياق المشترك: النطاقات 2026، PIF، RHQ، نافس، الرواتب
 │   ├── وظيفة.md       ← تقييم كامل 7 blocks
 │   ├── نطاق.md        ← تحليل النطاق والأهلية
 │   ├── مسح.md         ← خطة البحث في البوابات السعودية
 │   ├── تحضير.md       ← إعداد المقابلة العميق
 │   ├── واقع.md        ← معايرة التوقعات بالسوق
-│   └── تواصل.md       ← LinkedIn outreach مُخصَّص
+│   ├── تواصل.md       ← LinkedIn outreach مُخصَّص
+│   ├── استخراج.md     ← تحويل أي CV إلى cv.md منظم
+│   ├── سيرة.md        ← تحسين السيرة لـ ATS + نسختان
+│   ├── خطاب.md        ← Cover Letter مُخصَّص
+│   ├── دفعة.md        ← تقييم batch لـ 5-15 وظيفة
+│   └── تفاوض.md       ← استراتيجية التفاوض
+├── prompts/
+│   ├── ترشيح.md       ← pipeline n8n الأساسي
+│   └── jobs-pipeline.md ← pipeline جاهز للتكامل التجاري
 ├── config/
 │   └── profile.example.yml
 ├── data/
 │   └── tracker.tsv
 ├── interview-prep/
 │   └── story-bank.md
-└── docs/
-    └── SETUP.ar.md
+├── docs/
+│   ├── architecture.md
+│   ├── doitsmart-integration.md
+│   └── SETUP.ar.md
+└── scripts/
+    └── nitaqat_report.py
 ```
 
 ---
@@ -121,15 +160,25 @@ saudi-career-ops/
 
 ## الحالة الراهنة
 
-المشروع في مرحلة **Beta نشطة** — الـ modes الأساسية مكتملة ومختبرة، البنية التقنية (PDF، scanner أوتوماتيكي) قادمة في Phase 3.
+المشروع **مكتمل وجاهز للتكامل** — 11 mode عاملة، pipeline جاهز، التكامل مع jobs.doitsmart.cloud قادم.
 
 ```
 Phase 1 ✅  البنية الأساسية والتوثيق
-Phase 2 ✅  المكتبة الكاملة — 6 modes
-Phase 3 🔄  PDF عربي، scanner أوتوماتيكي، dashboard
+Phase 2 ✅  التوسع والتكامل التجاري — 11 modes + pipeline
+Phase 3 🔄  n8n workflow + Supabase + live job fetching
 ```
 
 > خارطة الطريق الكاملة: [`ROADMAP.md`](ROADMAP.md)
+
+---
+
+## المنتج التجاري
+
+[jobs.doitsmart.cloud](https://jobs.doitsmart.cloud) هو التطبيق التجاري المبني على هذا النظام.
+المستخدم يرفع سيرته ويستلم خلال 48 ساعة: تقرير ATS، وظائف مطابقة،
+سيرة معدلة، وCover Letter — مدار بـ prompts/jobs-pipeline.md.
+
+التكامل التقني عبر n8n موثق في docs/doitsmart-integration.md.
 
 ---
 

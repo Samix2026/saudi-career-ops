@@ -8,6 +8,26 @@
 **AR:** نظام استشاري ذكي يعتمد على منطق برمجي حتمي لأتمتة فهم تعقيدات لوائح سوق العمل السعودي.
 **EN:** An intelligent advisory system using deterministic logic to automate understanding of Saudi labor regulations.
 
+## 📋 Project Status | حالة المشروع — May 2026
+
+| Component | Status | Description |
+|-----------|--------|-------------|
+| modes/وظيفة.md | Complete | Single job evaluation — 7 analytical blocks |
+| modes/نطاق.md | Complete | Nitaqat/Saudization analysis |
+| modes/واقع.md | Complete | Expectation calibration against real market |
+| modes/تواصل.md | Complete | LinkedIn outreach — 6 message types |
+| modes/تحضير.md | Complete | Deep interview preparation |
+| modes/مسح.md | Complete | Custom search plan per portal |
+| modes/استخراج.md | Complete | CV to structured cv.md extraction |
+| modes/سيرة.md | Complete | ATS-optimized CV, Arabic + English |
+| modes/خطاب.md | Complete | Tailored cover letter, dual language |
+| modes/دفعة.md | Complete | Batch evaluation for 5-15 jobs |
+| modes/تفاوض.md | Complete | Salary negotiation strategy |
+| prompts/jobs-pipeline.md | Complete | n8n-ready pipeline prompt |
+| scripts/nitaqat_report.py | Complete | Nitaqat compliance report for employers |
+| docs/doitsmart-integration.md | Complete | Integration specs for jobs.doitsmart.cloud |
+| n8n workflow | Upcoming | Live connection to jobs.doitsmart.cloud |
+
 ## 📊 لوحة تحكم المشروع | Project Dashboard
 | المرحلة | الأولوية | الحالة | النضج |
 | :--- | :--- | :--- | :--- |
